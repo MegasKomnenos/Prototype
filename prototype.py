@@ -227,7 +227,7 @@ foo.add_item(
         ),
     value=True
     )
-foo.add_item("Labor Inequality", Value(10), value=True)
+foo.add_item("Labor Inequality", Value(3), value=True)
 foo.add_item(
     "Labor Inequality Negative",
     Value(
