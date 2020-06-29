@@ -64,10 +64,8 @@ class Value:
         self.base = base
         self.functions = functions
         self.paras = paras
-        self.size = 0
         self.functions_curve = functions_curve
         self.paras_curve = paras_curve
-        self.size_curve = 0
         self.value = None
         self.curve = curve
         self.query = query
@@ -78,13 +76,9 @@ class Value:
         if self.curve:
             add_helper(self.curve.children, self)
         if self.functions:
-            self.size = len(self.functions)
-
             for para in self.paras:
                 add_helper(para.children, self)
         if self.functions_curve:
-            self.size_curve = len(self.functions_curve)
-
             for para in self.paras_curve:
                 add_helper(para.children, self)
 
@@ -96,13 +90,13 @@ class Value:
 
             self.value = self.base
 
-            if self.size_curve:
-                for i in range(self.size_curve):
+            if self.functions_curve:
+                for i in range(len(self.functions_curve)):
                     self.value = self.functions_curve[i](self.value, self.paras_curve[i].do_update())
             if self.curve:
                 self.value = self.curve.do_query(self.query, self.value)
-            if self.size:
-                for i in range(self.size):
+            if self.functions:
+                for i in range(len(self.functions)):
                     self.value = self.functions[i](self.value, self.paras[i].do_update())
         return self.value
 
