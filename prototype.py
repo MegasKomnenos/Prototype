@@ -1,15 +1,10 @@
 from scipy.stats import gamma
 from scipy.stats import norm
+from scipy.stats import skewnorm
 
 from enum import Enum
 
 import math
-
-GAMMAPDF = lambda x, paras : gamma.pdf(x, paras[2].value, paras[0].value, paras[1].value)
-GAMMACDF = lambda x, paras : gamma.cdf(x, paras[2].value, paras[0].value, paras[1].value)
-
-NORMPDF = lambda x, paras : norm.pdf(x, paras[0].value, paras[1].value)
-NORMCDF = lambda x, paras : norm.cdf(x, paras[0].value, paras[1].value)
 
 MULT = lambda x, para : x * para
 DIV = lambda x, para : x / para
@@ -22,11 +17,12 @@ LOG = lambda x, para : math.log(x, para)
 class Query(Enum):
     PDF = 1
     CDF = 2
+    MEDN = 3
+    MEAN = 4
 
 class Curve:
-    def __init__(self, pdf, cdf, *paras):
-        self.pdf = pdf
-        self.cdf = cdf
+    def __init__(self, distrib, *paras):
+        self.distrib = distrib
         self.paras = list(paras)
         self.update = False
 
@@ -45,10 +41,19 @@ class Curve:
         return self
 
     def get(self, x, query):
+        funct = None
+        
         if query == Query.PDF:
-            return self.do_update().pdf(x, self.paras)
+            funct = self.do_update().distrib.pdf
         elif query == Query.CDF:
-            return self.do_update().cdf(x, self.paras)
+            funct = self.do_update().distrib.cdf
+        elif query == Query.MEDN:
+            funct = self.do_update().distrib.median
+        elif query == Query.MEAN:
+            funct = self.do_update().distrib.mean
+
+        if funct:
+            return run_helper(funct, x, self.paras)
 
         return None
         
@@ -110,22 +115,30 @@ class Value:
             
             self.base = base
 
-class Dict:
+    def change_base(self, base, function, para):
+        self.base = function(self.base, para)
+        
+
+class World:
     def __init__(self):
         self.curves = dict()
         self.values = dict()
 
-    def add_item(self, name, item, curve=False, value=False):
+    def add_item(self, name, item, curve=False, value=False, system=False):
         if curve:
             self.curves[name] = item
-        if value:
+        elif value:
             self.values[name] = item
+        elif system:
+            self.systems[name] = item
 
-    def get_item(self, name, curve=False, value=False):
+    def get_item(self, name, curve=False, value=False, system=False):
         if curve:
             return self.curves.get(name)
         elif value:
             return self.values.get(name)
+        elif system:
+            return self.systems.get(name)
 
         return None
 
@@ -146,7 +159,15 @@ def add_helper(lst, item):
     if not item in lst:
         lst.append(item)
 
-foo = Dict()
+def run_helper(funct, x, paras):
+    if len(paras) == 3:
+        return funct(x, paras[2].value, paras[0].value, paras[1].value)
+    elif len(paras) == 2:
+        return funct(x, paras[0].value, paras[1].value)
+
+    return None
+
+foo = World()
 foo.add_item("Total Wealth", Value(100), value=True)
 foo.add_item("Total Pop", Value(10), value=True)
 foo.add_item("Wealth Distrib Base", Value(2), value=True)
@@ -187,68 +208,10 @@ foo.add_item(
 foo.add_item(
     "Wealth Distrib Curve",
     Curve(
-        GAMMAPDF,
-        GAMMACDF,
+        gamma,
         foo.get_item("Wealth Distrib Loc", value=True),
         foo.get_item("Wealth Distrib Scale", value=True),
         foo.get_item("Wealth Distrib Shape", value=True)
         ),
     curve=True
     )
-
-foo.add_item("Total Farmland", Value(10), value=True)
-foo.add_item("Average Temperature", Value(-1), value=True)
-foo.add_item("Temperature Deviation", Value(1), value=True)
-foo.add_item("1", Value(1), value=True)
-foo.add_item("-1", Value(-1), value=True)
-foo.add_item(
-    "Temperature Distrib Curve",
-    Curve(
-        NORMPDF,
-        NORMCDF,
-        foo.get_item("Average Temperature", value=True),
-        foo.get_item("Temperature Deviation", value=True)
-        ),
-    curve=True
-    )
-foo.add_item(
-    "Wheat Possible Farmland",
-    Value(
-        15.5,
-        [
-            SUBT,
-            MULT,
-            MULT
-            ],
-        [
-            foo.get_item("1", value=True),
-            foo.get_item("-1", value=True),
-            foo.get_item("Total Farmland", value=True)
-            ],
-        curve=foo.get_item("Temperature Distrib Curve", curve=True),
-        query=Query.CDF
-        ),
-    value=True
-    )
-foo.add_item(
-    "Grazing Possible Farmland",
-    Value(
-        0,
-        [
-            SUBT,
-            MULT,
-            MULT
-            ],
-        [
-            foo.get_item("1", value=True),
-            foo.get_item("-1", value=True),
-            foo.get_item("Total Farmland", value=True)
-            ],
-        curve=foo.get_item("Temperature Distrib Curve", curve=True),
-        query=Query.CDF
-        ),
-    value=True
-    )
-
-print(foo.get_item("Wheat Possible Farmland", value=True).value)
-print(foo.get_item("Grazing Possible Farmland", value=True).value)
