@@ -40,20 +40,17 @@ class Curve:
 
         return self
 
-    def get(self, x, query):
+    def do_query(self, query, x=None):
         funct = None
         
         if query == Query.PDF:
-            funct = self.do_update().distrib.pdf
+            return run_helper(self.do_update().distrib.pdf, self.paras, x)
         elif query == Query.CDF:
-            funct = self.do_update().distrib.cdf
+            return run_helper(self.do_update().distrib.cdf, self.paras, x)
         elif query == Query.MEDN:
-            funct = self.do_update().distrib.median
+            return run_helper(self.do_update().distrib.median, self.paras)
         elif query == Query.MEAN:
-            funct = self.do_update().distrib.mean
-
-        if funct:
-            return run_helper(funct, x, self.paras)
+            return run_helper(self.do_update().distrib.mean, self.paras)
 
         return None
         
@@ -103,7 +100,7 @@ class Value:
                 for i in range(self.size_curve):
                     self.value = self.functions_curve[i](self.value, self.paras_curve[i].do_update())
             if self.curve:
-                self.value = self.curve.get(self.value, self.query)
+                self.value = self.curve.do_query(self.query, self.value)
             if self.size:
                 for i in range(self.size):
                     self.value = self.functions[i](self.value, self.paras[i].do_update())
@@ -124,21 +121,17 @@ class World:
         self.curves = dict()
         self.values = dict()
 
-    def add_item(self, name, item, curve=False, value=False, system=False):
+    def add_item(self, name, item, curve=False, value=False):
         if curve:
             self.curves[name] = item
         elif value:
             self.values[name] = item
-        elif system:
-            self.systems[name] = item
 
-    def get_item(self, name, curve=False, value=False, system=False):
+    def get_item(self, name, curve=False, value=False):
         if curve:
             return self.curves.get(name)
         elif value:
             return self.values.get(name)
-        elif system:
-            return self.systems.get(name)
 
         return None
 
@@ -159,11 +152,17 @@ def add_helper(lst, item):
     if not item in lst:
         lst.append(item)
 
-def run_helper(funct, x, paras):
+def run_helper(funct, paras, x=None):
     if len(paras) == 3:
-        return funct(x, paras[2].value, paras[0].value, paras[1].value)
+        if x:
+            return funct(x, paras[2].value, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[2].value, paras[0].value, paras[1].value)
     elif len(paras) == 2:
-        return funct(x, paras[0].value, paras[1].value)
+        if x:
+            return funct(x, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[0].value, paras[1].value)
 
     return None
 
@@ -200,7 +199,7 @@ foo.add_item(
         [
             foo.get_item("Total Wealth", value=True),
             foo.get_item("Total Pop", value=True),
-            foo.get_item("Wealth Distrib Modi", value=True)
+            foo.get_item("Wealth Distrib Shape", value=True)
             ],
         ),
     value=True
@@ -215,3 +214,7 @@ foo.add_item(
         ),
     curve=True
     )
+
+curve = foo.get_item("Wealth Distrib Curve", curve=True)
+
+print(curve.do_query(Query.MEAN))
