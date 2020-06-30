@@ -233,8 +233,8 @@ foo.add_item(
         ),
     value=True
     )
-foo.add_item("Labor Drive", Value(5), value=True)
-foo.add_item("Labor Shape Base", Value(2), value=True)
+foo.add_item("Labor Drive", Value(6), value=True)
+foo.add_item("Labor Shape Base", Value(4), value=True)
 foo.add_item("0", Value(0), value=True)
 foo.add_item(
     "Labor Shape",
