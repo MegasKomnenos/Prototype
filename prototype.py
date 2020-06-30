@@ -168,8 +168,26 @@ def run_helper(funct, paras, x=None):
     return None
 
 foo = World()
+foo.add_item("1", Value(1), value=True)
+foo.add_item("0", Value(0), value=True)
+foo.add_item("-1", Value(-1), value=True)
 foo.add_item("Total Wealth", Value(100), value=True)
 foo.add_item("Total Pop", Value(10), value=True)
+foo.add_item(
+    "Average Wealth",
+    Value(
+        1,
+        [
+            MULT,
+            DIV
+            ],
+        [
+            foo.get_item("Total Wealth", value=True),
+            foo.get_item("Total Pop", value=True)
+            ]
+        ),
+    value=True
+    )
 foo.add_item("Wealth Distrib Base", Value(2), value=True)
 foo.add_item("Wealth Distrib Modi", Value(1), value=True)
 foo.add_item("Wealth Distrib Loc", Value(0), value=True)
@@ -194,12 +212,10 @@ foo.add_item(
         1,
         [
             MULT,
-            DIV,
             DIV
             ],
         [
-            foo.get_item("Total Wealth", value=True),
-            foo.get_item("Total Pop", value=True),
+            foo.get_item("Average Wealth", value=True),
             foo.get_item("Wealth Distrib Shape", value=True)
             ],
         ),
@@ -232,10 +248,10 @@ foo.add_item(
             ],
         ),
     value=True
-    )
+    )        
+
 foo.add_item("Labor Drive", Value(6), value=True)
 foo.add_item("Labor Shape Base", Value(4), value=True)
-foo.add_item("0", Value(0), value=True)
 foo.add_item(
     "Labor Shape",
     Value(
@@ -291,6 +307,8 @@ foo.add_item(
     ),
     value=True
     )
+    
+
 
 workhour = foo.get_item("Workhour Distrib Curve", curve=True)
 leisure = foo.get_item("Leisure Distrib Curve", curve=True)
