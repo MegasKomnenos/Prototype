@@ -217,9 +217,9 @@ foo.add_item(
     )
 
 foo.add_item("Hours in Day", Value(24), value=True)
-foo.add_item("Average Workhour", Value(12), value=True)
+foo.add_item("Maximum Workhour", Value(18), value=True)
 foo.add_item(
-    "Average Leisure",
+    "Minimum Leisure",
     Value(
         1,
         [
@@ -228,108 +228,78 @@ foo.add_item(
             ],
         [
             foo.get_item("Hours in Day", value=True),
-            foo.get_item("Average Workhour", value=True)
+            foo.get_item("Maximum Workhour", value=True),
             ],
         ),
     value=True
     )
-foo.add_item("Labor Inequality", Value(3), value=True)
-foo.add_item(
-    "Labor Inequality Negative",
-    Value(
-        -1,
-        [MULT],
-        [foo.get_item("Labor Inequality", value=True)]
-        ),
-    value=True
-    )
-foo.add_item("Labor Scale", Value(3), value=True)
+foo.add_item("Labor Drive", Value(5), value=True)
+foo.add_item("Labor Shape Base", Value(2), value=True)
 foo.add_item("0", Value(0), value=True)
-foo.add_item("-1", Value(-1), value=True)
 foo.add_item(
-    "Workhour Distrib Helper",
-    Curve(
-        skewnorm,
-        foo.get_item("0", value=True),
-        foo.get_item("Labor Scale", value=True),
-        foo.get_item("Labor Inequality Negative", value=True)
-        ),
-    curve=True
-    )
-foo.add_item(
-    "Workhour Distrib Loc",
+    "Labor Shape",
     Value(
-        0,
+        1,
         [
             MULT,
             ADD
             ],
         [
-            foo.get_item("-1", value=True),
-            foo.get_item("Average Workhour", value=True)
-            ],
-        curve=foo.get_item("Workhour Distrib Helper", curve=True),
-        query=Query.MEAN
+            foo.get_item("Labor Shape Base", value=True),
+            foo.get_item("Labor Drive", value=True)
+            ]
         ),
     value=True
     )
 foo.add_item(
     "Workhour Distrib Curve",
     Curve(
-        skewnorm,
-        foo.get_item("Workhour Distrib Loc", value=True),
-        foo.get_item("Labor Scale", value=True),
-        foo.get_item("Labor Inequality Negative", value=True)
-        ),
-    curve=True
-    )
-foo.add_item(
-    "Leisure Distrib Helper",
-    Curve(
-        skewnorm,
+        beta,
         foo.get_item("0", value=True),
-        foo.get_item("Labor Scale", value=True),
-        foo.get_item("Labor Inequality", value=True)
+        foo.get_item("Maximum Workhour", value=True),
+        foo.get_item("Labor Shape", value=True),
+        foo.get_item("Labor Shape Base", value=True),
         ),
     curve=True
-    )
-foo.add_item(
-    "Leisure Distrib Loc",
-    Value(
-        0,
-        [
-            MULT,
-            ADD
-            ],
-        [
-            foo.get_item("-1", value=True),
-            foo.get_item("Average Leisure", value=True)
-            ],
-        curve=foo.get_item("Leisure Distrib Helper", curve=True),
-        query=Query.MEAN
-        ),
-    value=True
     )
 foo.add_item(
     "Leisure Distrib Curve",
     Curve(
-        skewnorm,
-        foo.get_item("Leisure Distrib Loc", value=True),
-        foo.get_item("Labor Scale", value=True),
-        foo.get_item("Labor Inequality", value=True)
+        beta,
+        foo.get_item("Minimum Leisure", value=True),
+        foo.get_item("Maximum Workhour", value=True),
+        foo.get_item("Labor Shape Base", value=True),
+        foo.get_item("Labor Shape", value=True),
         ),
     curve=True
+    )
+foo.add_item(
+    "Average Workhour",
+    Value(
+        0,
+        curve=foo.get_item("Workhour Distrib Curve", curve=True),
+        query=Query.MEAN
+    ),
+    value=True
+    )
+foo.add_item(
+    "Average Leisure",
+    Value(
+        0,
+        curve=foo.get_item("Leisure Distrib Curve", curve=True),
+        query=Query.MEAN
+    ),
+    value=True
     )
 
 workhour = foo.get_item("Workhour Distrib Curve", curve=True)
 leisure = foo.get_item("Leisure Distrib Curve", curve=True)
 
 fig, ax = plt.subplots(1, 1)
-x = np.linspace(0.001, 23.999, 100)
+x = np.linspace(-0.01, 23.99, 2400)
 ax.plot(x, [workhour.do_query(Query.PDF, xx) for xx in x], 'r-', alpha=0.6, label="Workhour Distribution")
 ax.plot(x, [leisure.do_query(Query.PDF, xx) for xx in x], 'b-', alpha=0.6, label="Leisure Distribution")
 
 print(workhour.do_query(Query.MEAN), leisure.do_query(Query.MEAN))
 
 plt.show()
-
