@@ -1,6 +1,7 @@
 from scipy.stats import gamma
 from scipy.stats import norm
 from scipy.stats import skewnorm
+from scipy.stats import beta
 from enum import Enum
 
 import matplotlib.pyplot as plt
@@ -148,6 +149,11 @@ def add_helper(lst, item):
         lst.append(item)
 
 def run_helper(funct, paras, x=None):
+    if len(paras) == 4:
+        if x:
+            return funct(x, paras[2].value, paras[3].value, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[2].value, paras[3].value, paras[0].value, paras[1].value)
     if len(paras) == 3:
         if x:
             return funct(x, paras[2].value, paras[0].value, paras[1].value)
