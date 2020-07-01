@@ -357,16 +357,17 @@ lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.PDF
 herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.PDF, xx) for xx in x]
 nobles_y = [nobles_total.value * nobles_wealth.do_query(Query.PDF, xx) for xx in x]
 
-pops_y_subt = []
+pops_f = pops_total.value / (farmers_total.value + lumberjacks_total.value + herdsmen_total.value + nobles_total.value)
 pops_y = []
 
 for i in range(size):
-    pops_y.append(farmers_y[i] + lumberjacks_y[i] + herdsmen_y[i] + nobles_y[i])
-    pops_y_subt.append(pops_y[-1] - max(farmers_y[i], lumberjacks_y[i], herdsmen_y[i], nobles_y[i]))
+    ys = [farmers_y[i], lumberjacks_y[i], herdsmen_y[i], nobles_y[i]]
+    ys.sort()
 
-pops_y_subt /= sum(pops_y_subt)
-pops_y_subt *= farmers_total.value + lumberjacks_total.value + herdsmen_total.value + nobles_total.value - pops_total.value
-pops_y -= pops_y_subt
+    y = sum(ys[:3]) * pops_f
+    y += ys[3]
+
+    pops_y.append(y)
 
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
