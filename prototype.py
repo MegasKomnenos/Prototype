@@ -20,8 +20,7 @@ LOG = lambda x, para : math.log(x, para)
 class Query(Enum):
     PDF = 1
     CDF = 2
-    MEDN = 3
-    MEAN = 4
+    MEAN = 3
 
 class Curve:
     def __init__(self, distrib, *paras):
@@ -48,8 +47,6 @@ class Curve:
             return run_helper(self.do_update().distrib.pdf, self.paras, x)
         elif query == Query.CDF:
             return run_helper(self.do_update().distrib.cdf, self.paras, x)
-        elif query == Query.MEDN:
-            return run_helper(self.do_update().distrib.median, self.paras)
         elif query == Query.MEAN:
             return run_helper(self.do_update().distrib.mean, self.paras)
 
@@ -285,8 +282,6 @@ class WorldLoader:
                         query = Query.PDF
                     elif query == 'CDF':
                         query = Query.CDF
-                    elif query == 'MEDN':
-                        query = Query.MEDN
                     elif query == 'MEAN':
                         query = Query.MEAN
 
