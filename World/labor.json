@@ -1,0 +1,96 @@
+[
+	{
+		"name" : "Hours in Day",
+		"type" : "Value",
+		"base" : 24,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Maximum Workhour",
+		"type" : "Value",
+		"base" : 18,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Minimum Leisure",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"MULT",
+			"SUBT"
+		],
+		"paras" : [
+			"Hours in Day",
+			"Maximum Workhour"
+		]
+	},
+	{
+		"name" : "Labor Drive",
+		"type" : "Value",
+		"base" : 6,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Labor Shape Base",
+		"type" : "Value",
+		"base" : 4,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Labor Shape",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"MULT",
+			"ADD"
+		],
+		"paras" : [
+			"Labor Shape Base",
+			"Labor Drive"
+		]
+	},
+	{
+		"name" : "Workhour Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Maximum Workhour",
+			"Labor Shape",
+			"Labor Shape Base"
+		]
+	},
+	{
+		"name" : "Leisure Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"Minimum Leisure",
+			"Maximum Workhour",
+			"Labor Shape Base",
+			"Labor Shape"
+		]
+	},
+	{
+		"name" : "Average Workhour",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "MEAN",
+		"curve" : "Workhour Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Average Leisure",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "MEAN",
+		"curve" : "Leisure Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	}
+]

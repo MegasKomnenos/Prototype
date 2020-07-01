@@ -1,0 +1,23 @@
+[
+	{
+		"name" : "1",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "0",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "-1",
+		"type" : "Value",
+		"base" : -1,
+		"functions" : [],
+		"paras" : []
+	}
+]

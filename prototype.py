@@ -1,12 +1,13 @@
 from scipy.stats import gamma
 from scipy.stats import norm
-from scipy.stats import skewnorm
 from scipy.stats import beta
 from enum import Enum
 
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import json
+import glob
 
 MULT = lambda x, para : x * para
 DIV = lambda x, para : x / para
@@ -105,25 +106,16 @@ class Instance(Value):
 
 class World:
     def __init__(self):
-        self.curves = dict()
-        self.values = dict()
+        self.objs = dict()
 
-    def add_item(self, name, item, curve=False, value=False):
-        if curve:
-            self.curves[name] = item
-        elif value:
-            self.values[name] = item
+    def add_item(self, name, item):
+        self.objs[name] = item
 
-    def get_item(self, name, curve=False, value=False):
-        if curve:
-            return self.curves.get(name)
-        elif value:
-            return self.values.get(name)
-
-        return None
+    def get_item(self, name):
+        return self.objs.get(name)
 
     def do_update(self):
-        lst = [value for value in self.values.values() if value.update]
+        lst = [obj for obj in self.objs.values() if obj.update]
 
         while lst:
             for child in lst.pop().children:
@@ -132,8 +124,8 @@ class World:
 
                     lst.append(child)
 
-        for value in self.values.values():
-            value.do_update()
+        for obj in self.objs.values():
+            obj.do_update()
 
 def add_helper(lst, item):
     if not item in lst:
@@ -158,184 +150,188 @@ def run_helper(funct, paras, x=None):
 
     return None
 
-foo = World()
-foo.add_item("1", Value(1), value=True)
-foo.add_item("0", Value(0), value=True)
-foo.add_item("-1", Value(-1), value=True)
+class WorldLoader:
+    def __init__(self, root):
+        files = []
 
-foo.add_item("Soldiers Total", Value(4), value=True)
-foo.add_item("Soldiers Wealth Distrib Shape Base", Value(5), value=True)
-foo.add_item(
-    "Soldiers Wealth Distrib Shape A",
-    Value(
-        0,
-        [ADD],
-        [foo.get_item("Soldiers Wealth Distrib Shape Base", value=True)],
-    ),
-    value=True
-    )
-foo.add_item(
-    "Soldiers Wealth Distrib Shape B",
-    Value(
-        0,
-        [ADD],
-        [foo.get_item("Soldiers Wealth Distrib Shape Base", value=True)],
-    ),
-    value=True
-    )
-foo.add_item("Soldiers Wealth Distrib Scale", Value(1), value=True)
-foo.add_item(
-    "Soldiers Wealth Distrib Curve",
-    Curve(
-        beta,
-        foo.get_item("0", value=True),
-        foo.get_item("Soldiers Wealth Distrib Scale", value=True),
-        foo.get_item("Soldiers Wealth Distrib Shape A", value=True),
-        foo.get_item("Soldiers Wealth Distrib Shape B", value=True)
-        ),
-    curve=True
-    )
+        for path in glob.glob(f'{root}\\*.json'):
+            files.append(json.load(open(path)))
 
-foo.add_item("Nobles Total", Value(3), value=True)
-foo.add_item("Nobles Wealth Distrib Shape Base", Value(5), value=True)
-foo.add_item(
-    "Nobles Wealth Distrib Shape A",
-    Value(
-        5,
-        [ADD],
-        [foo.get_item("Nobles Wealth Distrib Shape Base", value=True)],
-    ),
-    value=True
-    )
-foo.add_item(
-    "Nobles Wealth Distrib Shape B",
-    Value(
-        0,
-        [ADD],
-        [foo.get_item("Nobles Wealth Distrib Shape Base", value=True)],
-    ),
-    value=True
-    )
-foo.add_item("Nobles Wealth Distrib Scale", Value(2), value=True)
-foo.add_item(
-    "Nobles Wealth Distrib Curve",
-    Curve(
-        beta,
-        foo.get_item("0", value=True),
-        foo.get_item("Nobles Wealth Distrib Scale", value=True),
-        foo.get_item("Nobles Wealth Distrib Shape A", value=True),
-        foo.get_item("Nobles Wealth Distrib Shape B", value=True)
-        ),
-    curve=True
-    )
+        self.objs = dict()
 
-foo.add_item(
-    "Pops Total",
-    Value(
-        0,
-        [
-            ADD,
-            ADD
-            ],
-        [
-            foo.get_item("Soldiers Total", value=True),
-            foo.get_item("Nobles Total", value=True)
-            ]
-        ),
-    value=True
-    )
+        for file in files:
+            for dct in file:
+                name = dct.get('name')
 
-soldiers_wealth = foo.get_item("Soldiers Wealth Distrib Curve", curve=True)
-nobles_wealth = foo.get_item("Nobles Wealth Distrib Curve", curve=True)
+                if name:
+                    obj = dict()
 
-soldiers_total = foo.get_item("Soldiers Total", value=True).value
-nobles_total = foo.get_item("Nobles Total", value=True).value
-pops_total = foo.get_item("Pops Total", value=True).value
+                    obj['loaded'] = False
+                    obj['parents'] = list()
+                    obj['children'] = list()
 
-fig, ax = plt.subplots(1, 1)
-size = int(150*nobles_wealth.do_query(Query.MEAN))
-x = np.linspace(0.01, 1.5*nobles_wealth.do_query(Query.MEAN), size)
-ax.plot(x, [soldiers_total * soldiers_wealth.do_query(Query.PDF, xx) for xx in x], 'r-', alpha=0.6)
-ax.plot(x, [nobles_total * nobles_wealth.do_query(Query.PDF, xx) for xx in x], 'b-', alpha=0.6)
+                    self.objs[name] = obj
+                else:
+                    file.remove(dct)
 
-print(soldiers_wealth.do_query(Query.MEAN))
-print(nobles_wealth.do_query(Query.MEAN))
+        for file in files:
+            for dct in file:
+                name = dct['name']
+                obj = self.objs[name]
+                parents = obj['parents']
+                children = obj['children']
+                typ = dct.get('type')
 
+                paras = dct['paras']
 
-foo.add_item("Hours in Day", Value(24), value=True)
-foo.add_item("Maximum Workhour", Value(18), value=True)
-foo.add_item(
-    "Minimum Leisure",
-    Value(
-        1,
-        [
-            MULT,
-            SUBT
-            ],
-        [
-            foo.get_item("Hours in Day", value=True),
-            foo.get_item("Maximum Workhour", value=True),
-            ],
-        ),
-    value=True
-    )        
+                for para in paras:
+                    add_helper(parents, para)
+                    add_helper(self.objs[para]['children'], name)
 
-foo.add_item("Labor Drive", Value(6), value=True)
-foo.add_item("Labor Shape Base", Value(4), value=True)
-foo.add_item(
-    "Labor Shape",
-    Value(
-        1,
-        [
-            MULT,
-            ADD
-            ],
-        [
-            foo.get_item("Labor Shape Base", value=True),
-            foo.get_item("Labor Drive", value=True)
-            ]
-        ),
-    value=True
-    )
-foo.add_item(
-    "Workhour Distrib Curve",
-    Curve(
-        beta,
-        foo.get_item("0", value=True),
-        foo.get_item("Maximum Workhour", value=True),
-        foo.get_item("Labor Shape", value=True),
-        foo.get_item("Labor Shape Base", value=True),
-        ),
-    curve=True
-    )
-foo.add_item(
-    "Leisure Distrib Curve",
-    Curve(
-        beta,
-        foo.get_item("Minimum Leisure", value=True),
-        foo.get_item("Maximum Workhour", value=True),
-        foo.get_item("Labor Shape Base", value=True),
-        foo.get_item("Labor Shape", value=True),
-        ),
-    curve=True
-    )
-foo.add_item(
-    "Average Workhour",
-    Instance(
-        0,
-        Query.MEAN,
-        foo.get_item("Workhour Distrib Curve", curve=True)
-    ),
-    value=True
-    )
-foo.add_item(
-    "Average Leisure",
-    Instance(
-        0,
-        Query.MEAN,
-        foo.get_item("Leisure Distrib Curve", curve=True)
-    ),
-    value=True
-    )
+                obj['paras'] = paras
+                obj['type'] = typ
 
-plt.show()
+                if typ == 'Curve':
+                    obj['distrib'] = dct['distrib']
+                elif typ == 'Value':
+                    obj['functions'] = dct['functions']
+                    obj['base'] = dct['base']
+                elif typ == 'Instance':
+                    curve = dct['curve']
+
+                    obj['curve'] = curve
+                    obj['query'] = dct['query']
+                    obj['functions'] = dct['functions']
+                    obj['base'] = dct['base']
+
+                    add_helper(parents, curve)
+                    add_helper(self.objs[curve]['children'], name)
+
+    def gen(self):
+        world = World()
+
+        lst = [pair for pair in self.objs.items() if not pair[1]['parents']]
+
+        while lst:
+            for (name, obj) in lst:
+                self.objs.pop(name)
+                
+                paras = obj['paras']
+                typ = obj['type']
+                
+                if typ == 'Curve':
+                    distrib = obj['distrib']
+                    
+                    if distrib == 'gamma':
+                        world.add_item(
+                            name,
+                            Curve(
+                                gamma,
+                                world.get_item(paras[0]),
+                                world.get_item(paras[1]),
+                                world.get_item(paras[2])
+                            )
+                        )
+                    elif distrib == 'beta':
+                        world.add_item(
+                            name,
+                            Curve(
+                                beta,
+                                world.get_item(paras[0]),
+                                world.get_item(paras[1]),
+                                world.get_item(paras[2]),
+                                world.get_item(paras[3])
+                            )
+                        )
+                    elif distrib == 'normal':
+                        world.add_item(
+                            name,
+                            Curve(
+                                normal,
+                                world.get_item(paras[0]),
+                                world.get_item(paras[1])
+                            )
+                        )
+                elif typ == 'Value':
+                    paras = [world.get_item(para) for para in paras]
+                    
+                    functions = []
+
+                    for function in obj['functions']:
+                        if function == 'MULT':
+                            functions.append(MULT)
+                        if function == 'DIV':
+                            functions.append(DIV)
+                        if function == 'ADD':
+                            functions.append(ADD)
+                        if function == 'SUBT':
+                            functions.append(SUBT)
+                        if function == 'POW':
+                            functions.append(POW)
+                        if function == 'ROOT':
+                            functions.append(ROOT)
+                        if function == 'LOG':
+                            functions.append(LOG)
+                    
+                    
+                    world.add_item(
+                        name,
+                        Value(
+                            float(obj['base']),
+                            functions,
+                            paras
+                        )
+                    )
+                elif typ == 'Instance':
+                    paras = [world.get_item(para) for para in paras]
+                    
+                    functions = []
+                    query = obj['query']
+
+                    for function in obj['functions']:
+                        if function == 'MULT':
+                            functions.append(MULT)
+                        if function == 'DIV':
+                            functions.append(DIV)
+                        if function == 'ADD':
+                            functions.append(ADD)
+                        if function == 'SUBT':
+                            functions.append(SUBT)
+                        if function == 'POW':
+                            functions.append(POW)
+                        if function == 'ROOT':
+                            functions.append(ROOT)
+                        if function == 'LOG':
+                            functions.append(LOG)
+
+                    if query == 'PDF':
+                        query = Query.PDF
+                    elif query == 'CDF':
+                        query = Query.CDF
+                    elif query == 'MEDN':
+                        query = Query.MEDN
+                    elif query == 'MEAN':
+                        query = Query.MEAN
+
+                    world.add_item(
+                        name,
+                        Instance(
+                            float(obj['base']),
+                            query,
+                            world.get_item(obj['curve']),
+                            functions,
+                            paras
+                        )
+                    )
+
+                for child in obj['children']:
+                    self.objs[child]['parents'].remove(name)
+
+            lst = [pair for pair in self.objs.items() if not pair[1]['parents']]
+            
+        return world
+                        
+
+loader = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World')
+world = loader.gen()
+print(world.get_item("Average Workhour").value, world.get_item("Average Leisure").value)
