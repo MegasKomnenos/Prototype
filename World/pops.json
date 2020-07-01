@@ -149,5 +149,88 @@
 			"Nobles Wealth Distrib Scale",
 			"Nobles Wealth Distrib Shape"
 		]
+	},
+	
+	{
+		"name" : "Pops Wealth Distrib Curve",
+		"type" : "CurveSum",
+		"curves" : [
+			"Farmers Wealth Distrib Curve",
+			"Lumberjacks Wealth Distrib Curve",
+			"Herdsmen Wealth Distrib Curve",
+			"Nobles Wealth Distrib Curve"
+		],
+		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
+			]
+		],
+		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras_mean" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
+			]
+		]
 	}
 ]
