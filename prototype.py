@@ -30,7 +30,7 @@ class Curve:
 
         self.children = []
 
-        for para in paras:
+        for para in self.paras:
             add_helper(para.children, self)
 
     def do_update(self):
@@ -43,8 +43,6 @@ class Curve:
         return self
 
     def do_query(self, query, x=None):
-        funct = None
-        
         if query == Query.PDF:
             return run_helper(self.do_update().distrib.pdf, self.paras, x)
         elif query == Query.CDF:
@@ -55,33 +53,19 @@ class Curve:
             return run_helper(self.do_update().distrib.mean, self.paras)
 
         return None
-        
+
 class Value:
-    def __init__(
-        self, base,
-        functions=None, paras=None,
-        functions_curve=None, paras_curve=None,
-        curve=None, query=None
-        ):
+    def __init__(self, base, functions=None, paras=None):
         self.base = base
         self.functions = functions
         self.paras = paras
-        self.functions_curve = functions_curve
-        self.paras_curve = paras_curve
         self.value = None
-        self.curve = curve
-        self.query = query
         self.update = True
 
         self.children = []
 
-        if self.curve:
-            add_helper(self.curve.children, self)
-        if self.functions:
+        if self.paras:
             for para in self.paras:
-                add_helper(para.children, self)
-        if self.functions_curve:
-            for para in self.paras_curve:
                 add_helper(para.children, self)
 
         self.do_update()
@@ -91,15 +75,11 @@ class Value:
             self.update = False
 
             self.value = self.base
-
-            if self.functions_curve:
-                for i in range(len(self.functions_curve)):
-                    self.value = self.functions_curve[i](self.value, self.paras_curve[i].do_update())
-            if self.curve:
-                self.value = self.curve.do_query(self.query, self.value)
+            
             if self.functions:
                 for i in range(len(self.functions)):
                     self.value = self.functions[i](self.value, self.paras[i].do_update())
+
         return self.value
 
     def set_base(self, base):
@@ -108,9 +88,20 @@ class Value:
             
             self.base = base
 
-    def change_base(self, base, function, para):
-        self.base = function(self.base, para)
+class Instance(Value):
+    def __init__(self, base, query, curve, functions=None, paras=None):
+        self.query = query
+        self.curve = curve
         
+        super().__init__(base, functions, paras)
+
+        add_helper(self.curve.children, self)
+
+    def do_update(self):
+        if self.update:
+            self.value = self.curve.do_query(self.query, super().do_update())
+
+        return self.value
 
 class World:
     def __init__(self):
@@ -172,7 +163,7 @@ foo.add_item("1", Value(1), value=True)
 foo.add_item("0", Value(0), value=True)
 foo.add_item("-1", Value(-1), value=True)
 
-foo.add_item("Soldiers Total", Value(2), value=True)
+foo.add_item("Soldiers Total", Value(4), value=True)
 foo.add_item("Soldiers Wealth Distrib Shape Base", Value(5), value=True)
 foo.add_item(
     "Soldiers Wealth Distrib Shape A",
@@ -205,7 +196,7 @@ foo.add_item(
     curve=True
     )
 
-foo.add_item("Nobles Total", Value(1), value=True)
+foo.add_item("Nobles Total", Value(3), value=True)
 foo.add_item("Nobles Wealth Distrib Shape Base", Value(5), value=True)
 foo.add_item(
     "Nobles Wealth Distrib Shape A",
@@ -238,7 +229,21 @@ foo.add_item(
     curve=True
     )
 
-foo.add_item("Pops Total", Value(2.5), value=True)
+foo.add_item(
+    "Pops Total",
+    Value(
+        0,
+        [
+            ADD,
+            ADD
+            ],
+        [
+            foo.get_item("Soldiers Total", value=True),
+            foo.get_item("Nobles Total", value=True)
+            ]
+        ),
+    value=True
+    )
 
 soldiers_wealth = foo.get_item("Soldiers Wealth Distrib Curve", curve=True)
 nobles_wealth = foo.get_item("Nobles Wealth Distrib Curve", curve=True)
@@ -248,19 +253,10 @@ nobles_total = foo.get_item("Nobles Total", value=True).value
 pops_total = foo.get_item("Pops Total", value=True).value
 
 fig, ax = plt.subplots(1, 1)
-x = np.linspace(0.01, 2*nobles_wealth.do_query(Query.MEAN), 200*nobles_wealth.do_query(Query.MEAN))
+size = int(150*nobles_wealth.do_query(Query.MEAN))
+x = np.linspace(0.01, 1.5*nobles_wealth.do_query(Query.MEAN), size)
 ax.plot(x, [soldiers_total * soldiers_wealth.do_query(Query.PDF, xx) for xx in x], 'r-', alpha=0.6)
 ax.plot(x, [nobles_total * nobles_wealth.do_query(Query.PDF, xx) for xx in x], 'b-', alpha=0.6)
-ax.plot(
-    x,
-    [
-        soldiers_wealth.do_query(Query.PDF, xx) * pops_total * soldiers_total / (soldiers_total + nobles_total)
-        + nobles_wealth.do_query(Query.PDF, xx) * pops_total * nobles_total / (soldiers_total + nobles_total)
-        for xx in x
-        ],
-    'g-',
-    alpha=0.6
-    )
 
 print(soldiers_wealth.do_query(Query.MEAN))
 print(nobles_wealth.do_query(Query.MEAN))
@@ -325,19 +321,19 @@ foo.add_item(
     )
 foo.add_item(
     "Average Workhour",
-    Value(
+    Instance(
         0,
-        curve=foo.get_item("Workhour Distrib Curve", curve=True),
-        query=Query.MEAN
+        Query.MEAN,
+        foo.get_item("Workhour Distrib Curve", curve=True)
     ),
     value=True
     )
 foo.add_item(
     "Average Leisure",
-    Value(
+    Instance(
         0,
-        curve=foo.get_item("Leisure Distrib Curve", curve=True),
-        query=Query.MEAN
+        Query.MEAN,
+        foo.get_item("Leisure Distrib Curve", curve=True)
     ),
     value=True
     )
