@@ -127,29 +127,6 @@ class World:
         for obj in self.objs.values():
             obj.do_update()
 
-def add_helper(lst, item):
-    if not item in lst:
-        lst.append(item)
-
-def run_helper(funct, paras, x=None):
-    if len(paras) == 4:
-        if x:
-            return funct(x, paras[2].value, paras[3].value, paras[0].value, paras[1].value)
-        else:
-            return funct(paras[2].value, paras[3].value, paras[0].value, paras[1].value)
-    if len(paras) == 3:
-        if x:
-            return funct(x, paras[2].value, paras[0].value, paras[1].value)
-        else:
-            return funct(paras[2].value, paras[0].value, paras[1].value)
-    elif len(paras) == 2:
-        if x:
-            return funct(x, paras[0].value, paras[1].value)
-        else:
-            return funct(paras[0].value, paras[1].value)
-
-    return None
-
 class WorldLoader:
     def __init__(self, root):
         files = []
@@ -330,6 +307,29 @@ class WorldLoader:
             lst = [pair for pair in self.objs.items() if not pair[1]['parents']]
             
         return world
+
+def add_helper(lst, item):
+    if not item in lst:
+        lst.append(item)
+
+def run_helper(funct, paras, x=None):
+    if len(paras) == 4:
+        if x:
+            return funct(x, paras[2].value, paras[3].value, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[2].value, paras[3].value, paras[0].value, paras[1].value)
+    if len(paras) == 3:
+        if x:
+            return funct(x, paras[2].value, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[2].value, paras[0].value, paras[1].value)
+    elif len(paras) == 2:
+        if x:
+            return funct(x, paras[0].value, paras[1].value)
+        else:
+            return funct(paras[0].value, paras[1].value)
+
+    return None
                         
 
 loader = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World')
