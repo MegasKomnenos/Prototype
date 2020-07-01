@@ -52,6 +52,81 @@ class Curve:
 
         return None
 
+class CurveSum:
+    def __init__(self, curves, functions=None, paras=None, functions_mean=None, paras_mean=None):
+        self.curves = curves
+        self.functions = functions
+        self.paras = paras
+        self.functions_mean = functions_mean
+        self.paras_mean = paras_mean
+        self.mean = None
+        self.update = True
+
+        self.children = []
+
+        for curve in self.curves:
+            add_helper(curve.children, self)
+
+        if self.paras:
+            for paras in self.paras:
+                for para in paras:
+                    add_helper(para.children, self)
+        if self.paras_mean:
+            for paras in self.paras_mean:
+                for para in paras:
+                    add_helper(para.children, self)
+
+        self.do_update()
+
+    def do_update(self):
+        if self.update:
+            self.update = False
+
+            self.mean = 0
+
+            for i, curve in enumerate(self.curves):
+                functions = []
+                paras = []
+                
+                if self.paras_mean:
+                    functions = self.functions_mean[i]
+                    paras = self.paras_mean[i]
+
+                mean = curve.do_query(Query.MEAN)
+
+                for ii in range(len(paras)):
+                    mean = functions[ii](mean, paras[ii].do_update())
+
+                self.mean += mean
+
+        return self
+
+    def do_query(self, query, x=None):
+        if query == Query.PDF or query == Query.CDF:
+            result = 0
+
+            for i, curve in enumerate(self.curves):
+                functions = []
+                paras = []
+
+                if self.paras:
+                    functions = self.functions[i]
+                    paras = self.paras[i]
+
+                t = curve.do_query(query, x)
+
+                for ii in range(len(paras)):
+                    t = functions[ii](t, paras[ii].do_update())
+
+                result += t
+
+            return result
+        elif query == Query.MEAN:
+            return self.do_update().mean
+
+        return None
+            
+
 class Value:
     def __init__(self, base, functions=None, paras=None):
         self.base = base
@@ -140,7 +215,6 @@ class WorldLoader:
                 if name:
                     obj = dict()
 
-                    obj['loaded'] = False
                     obj['parents'] = list()
                     obj['children'] = list()
 
@@ -156,30 +230,50 @@ class WorldLoader:
                 children = obj['children']
                 typ = dct.get('type')
 
-                paras = dct['paras']
-
-                for para in paras:
-                    add_helper(parents, para)
-                    add_helper(self.objs[para]['children'], name)
-
-                obj['paras'] = paras
                 obj['type'] = typ
 
-                if typ == 'Curve':
-                    obj['distrib'] = dct['distrib']
-                elif typ == 'Value':
+                if typ == 'CurveSum':
+                    obj['curves'] = dct['curves']
                     obj['functions'] = dct['functions']
-                    obj['base'] = dct['base']
-                elif typ == 'Instance':
-                    curve = dct['curve']
+                    obj['paras'] = dct['paras']
+                    obj['functions_mean'] = dct['functions_mean']
+                    obj['paras_mean'] = dct['paras_mean']
 
-                    obj['curve'] = curve
-                    obj['query'] = dct['query']
-                    obj['functions'] = dct['functions']
-                    obj['base'] = dct['base']
+                    for curve in obj['curves']:
+                        add_helper(parents, curve)
+                        add_helper(self.objs[curve]['children'], name)
+                    for paras in obj['paras']:
+                        for para in paras:
+                            add_helper(parents, para)
+                            add_helper(self.objs[para]['children'], name)
+                    for paras in obj['paras_mean']:
+                        for para in paras:
+                            add_helper(parents, para)
+                            add_helper(self.objs[para]['children'], name)
+                else:
+                    paras = dct['paras']
 
-                    add_helper(parents, curve)
-                    add_helper(self.objs[curve]['children'], name)
+                    for para in paras:
+                        add_helper(parents, para)
+                        add_helper(self.objs[para]['children'], name)
+
+                    obj['paras'] = paras
+                    
+                    if typ == 'Curve':
+                        obj['distrib'] = dct['distrib']
+                    elif typ == 'Value':
+                        obj['functions'] = dct['functions']
+                        obj['base'] = dct['base']
+                    elif typ == 'Instance':
+                        curve = dct['curve']
+
+                        obj['curve'] = curve
+                        obj['query'] = dct['query']
+                        obj['functions'] = dct['functions']
+                        obj['base'] = dct['base']
+
+                        add_helper(parents, curve)
+                        add_helper(self.objs[curve]['children'], name)
 
     def gen(self):
         world = World()
@@ -190,20 +284,31 @@ class WorldLoader:
             for (name, obj) in lst:
                 self.objs.pop(name)
                 
-                paras = obj['paras']
                 typ = obj['type']
-                
-                if typ == 'Curve':
+
+                if typ == 'CurveSum':
+                    world.add_item(
+                        name,
+                        CurveSum(
+                            [world.get_item(curve) for curve in obj['curves']],
+                            [[str_2_function(function) for function in functions] for functions in obj['functions']],
+                            [[world.get_item(para) for para in paras] for paras in obj['paras']],
+                            [[str_2_function(function) for function in functions] for functions in obj['functions_mean']],
+                            [[world.get_item(para) for para in paras] for paras in obj['paras_mean']]
+                        )
+                    )
+                elif typ == 'Curve':
                     distrib = obj['distrib']
+                    paras = [world.get_item(para) for para in obj['paras']]
                     
                     if distrib == 'gamma':
                         world.add_item(
                             name,
                             Curve(
                                 gamma,
-                                world.get_item(paras[0]),
-                                world.get_item(paras[1]),
-                                world.get_item(paras[2])
+                                paras[0],
+                                paras[1],
+                                paras[2]
                             )
                         )
                     elif distrib == 'beta':
@@ -211,10 +316,10 @@ class WorldLoader:
                             name,
                             Curve(
                                 beta,
-                                world.get_item(paras[0]),
-                                world.get_item(paras[1]),
-                                world.get_item(paras[2]),
-                                world.get_item(paras[3])
+                                paras[0],
+                                paras[1],
+                                paras[2],
+                                paras[3]
                             )
                         )
                     elif distrib == 'normal':
@@ -222,61 +327,21 @@ class WorldLoader:
                             name,
                             Curve(
                                 normal,
-                                world.get_item(paras[0]),
-                                world.get_item(paras[1])
+                                paras[0],
+                                paras[1]
                             )
                         )
                 elif typ == 'Value':
-                    paras = [world.get_item(para) for para in paras]
-                    
-                    functions = []
-
-                    for function in obj['functions']:
-                        if function == 'MULT':
-                            functions.append(MULT)
-                        if function == 'DIV':
-                            functions.append(DIV)
-                        if function == 'ADD':
-                            functions.append(ADD)
-                        if function == 'SUBT':
-                            functions.append(SUBT)
-                        if function == 'POW':
-                            functions.append(POW)
-                        if function == 'ROOT':
-                            functions.append(ROOT)
-                        if function == 'LOG':
-                            functions.append(LOG)
-                    
-                    
                     world.add_item(
                         name,
                         Value(
                             float(obj['base']),
-                            functions,
-                            paras
+                            [str_2_function(function) for function in obj['functions']],
+                            [world.get_item(para) for para in obj['paras']]
                         )
                     )
                 elif typ == 'Instance':
-                    paras = [world.get_item(para) for para in paras]
-                    
-                    functions = []
                     query = obj['query']
-
-                    for function in obj['functions']:
-                        if function == 'MULT':
-                            functions.append(MULT)
-                        if function == 'DIV':
-                            functions.append(DIV)
-                        if function == 'ADD':
-                            functions.append(ADD)
-                        if function == 'SUBT':
-                            functions.append(SUBT)
-                        if function == 'POW':
-                            functions.append(POW)
-                        if function == 'ROOT':
-                            functions.append(ROOT)
-                        if function == 'LOG':
-                            functions.append(LOG)
 
                     if query == 'PDF':
                         query = Query.PDF
@@ -291,8 +356,8 @@ class WorldLoader:
                             float(obj['base']),
                             query,
                             world.get_item(obj['curve']),
-                            functions,
-                            paras
+                            [str_2_function(function) for function in obj['functions']],
+                            [world.get_item(para) for para in obj['paras']]
                         )
                     )
 
@@ -323,6 +388,24 @@ def run_helper(funct, paras, x=None):
             return funct(x, paras[0].value, paras[1].value)
         else:
             return funct(paras[0].value, paras[1].value)
+
+    return None
+
+def str_2_function(string):
+    if string == 'MULT':
+        return MULT
+    elif string == 'DIV':
+        return DIV
+    elif string == 'ADD':
+        return ADD
+    elif string == 'SUBT':
+        return SUBT
+    elif string == 'POW':
+        return POW
+    elif string == 'ROOT':
+        return ROOT
+    elif string == 'LOG':
+        return LOG
 
     return None
                         
