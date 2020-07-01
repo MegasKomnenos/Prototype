@@ -171,66 +171,100 @@ foo = World()
 foo.add_item("1", Value(1), value=True)
 foo.add_item("0", Value(0), value=True)
 foo.add_item("-1", Value(-1), value=True)
-foo.add_item("Total Wealth", Value(100), value=True)
-foo.add_item("Total Pop", Value(10), value=True)
+
+foo.add_item("Soldiers Total", Value(2), value=True)
+foo.add_item("Soldiers Wealth Distrib Shape Base", Value(5), value=True)
 foo.add_item(
-    "Average Wealth",
+    "Soldiers Wealth Distrib Shape A",
     Value(
-        1,
-        [
-            MULT,
-            DIV
-            ],
-        [
-            foo.get_item("Total Wealth", value=True),
-            foo.get_item("Total Pop", value=True)
-            ]
-        ),
-    value=True
-    )
-foo.add_item("Wealth Distrib Base", Value(2), value=True)
-foo.add_item("Wealth Distrib Modi", Value(1), value=True)
-foo.add_item("Wealth Distrib Loc", Value(0), value=True)
-foo.add_item(
-    "Wealth Distrib Shape",
-    Value(
-        1,
-        [
-            MULT,
-            MULT
-            ],
-        [
-            foo.get_item("Wealth Distrib Base", value=True),
-            foo.get_item("Wealth Distrib Modi", value=True)
-            ],
-        ),
+        0,
+        [ADD],
+        [foo.get_item("Soldiers Wealth Distrib Shape Base", value=True)],
+    ),
     value=True
     )
 foo.add_item(
-    "Wealth Distrib Scale",
+    "Soldiers Wealth Distrib Shape B",
     Value(
-        1,
-        [
-            MULT,
-            DIV
-            ],
-        [
-            foo.get_item("Average Wealth", value=True),
-            foo.get_item("Wealth Distrib Shape", value=True)
-            ],
-        ),
+        0,
+        [ADD],
+        [foo.get_item("Soldiers Wealth Distrib Shape Base", value=True)],
+    ),
     value=True
     )
+foo.add_item("Soldiers Wealth Distrib Scale", Value(1), value=True)
 foo.add_item(
-    "Wealth Distrib Curve",
+    "Soldiers Wealth Distrib Curve",
     Curve(
-        gamma,
-        foo.get_item("Wealth Distrib Loc", value=True),
-        foo.get_item("Wealth Distrib Scale", value=True),
-        foo.get_item("Wealth Distrib Shape", value=True)
+        beta,
+        foo.get_item("0", value=True),
+        foo.get_item("Soldiers Wealth Distrib Scale", value=True),
+        foo.get_item("Soldiers Wealth Distrib Shape A", value=True),
+        foo.get_item("Soldiers Wealth Distrib Shape B", value=True)
         ),
     curve=True
     )
+
+foo.add_item("Nobles Total", Value(1), value=True)
+foo.add_item("Nobles Wealth Distrib Shape Base", Value(5), value=True)
+foo.add_item(
+    "Nobles Wealth Distrib Shape A",
+    Value(
+        5,
+        [ADD],
+        [foo.get_item("Nobles Wealth Distrib Shape Base", value=True)],
+    ),
+    value=True
+    )
+foo.add_item(
+    "Nobles Wealth Distrib Shape B",
+    Value(
+        0,
+        [ADD],
+        [foo.get_item("Nobles Wealth Distrib Shape Base", value=True)],
+    ),
+    value=True
+    )
+foo.add_item("Nobles Wealth Distrib Scale", Value(2), value=True)
+foo.add_item(
+    "Nobles Wealth Distrib Curve",
+    Curve(
+        beta,
+        foo.get_item("0", value=True),
+        foo.get_item("Nobles Wealth Distrib Scale", value=True),
+        foo.get_item("Nobles Wealth Distrib Shape A", value=True),
+        foo.get_item("Nobles Wealth Distrib Shape B", value=True)
+        ),
+    curve=True
+    )
+
+foo.add_item("Pops Total", Value(2.5), value=True)
+
+soldiers_wealth = foo.get_item("Soldiers Wealth Distrib Curve", curve=True)
+nobles_wealth = foo.get_item("Nobles Wealth Distrib Curve", curve=True)
+
+soldiers_total = foo.get_item("Soldiers Total", value=True).value
+nobles_total = foo.get_item("Nobles Total", value=True).value
+pops_total = foo.get_item("Pops Total", value=True).value
+
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(0.01, 2*nobles_wealth.do_query(Query.MEAN), 200*nobles_wealth.do_query(Query.MEAN))
+ax.plot(x, [soldiers_total * soldiers_wealth.do_query(Query.PDF, xx) for xx in x], 'r-', alpha=0.6)
+ax.plot(x, [nobles_total * nobles_wealth.do_query(Query.PDF, xx) for xx in x], 'b-', alpha=0.6)
+ax.plot(
+    x,
+    [
+        soldiers_wealth.do_query(Query.PDF, xx) * pops_total * soldiers_total / (soldiers_total + nobles_total)
+        + nobles_wealth.do_query(Query.PDF, xx) * pops_total * nobles_total / (soldiers_total + nobles_total)
+        for xx in x
+        ],
+    'g-',
+    alpha=0.6
+    )
+
+print(soldiers_wealth.do_query(Query.MEAN))
+print(nobles_wealth.do_query(Query.MEAN))
+
 
 foo.add_item("Hours in Day", Value(24), value=True)
 foo.add_item("Maximum Workhour", Value(18), value=True)
@@ -307,17 +341,5 @@ foo.add_item(
     ),
     value=True
     )
-    
-
-
-workhour = foo.get_item("Workhour Distrib Curve", curve=True)
-leisure = foo.get_item("Leisure Distrib Curve", curve=True)
-
-fig, ax = plt.subplots(1, 1)
-x = np.linspace(-0.01, 23.99, 2400)
-ax.plot(x, [workhour.do_query(Query.PDF, xx) for xx in x], 'r-', alpha=0.6, label="Workhour Distribution")
-ax.plot(x, [leisure.do_query(Query.PDF, xx) for xx in x], 'b-', alpha=0.6, label="Leisure Distribution")
-
-print(workhour.do_query(Query.MEAN), leisure.do_query(Query.MEAN))
 
 plt.show()
