@@ -1,0 +1,185 @@
+[
+	{
+		"name" : "Pops Total",
+		"type" : "Value",
+		"base" : 100,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Total",
+		"type" : "Value",
+		"base" : 0.6,
+		"functions" : ["MULT"],
+		"paras" : ["Pops Total"]
+	},
+	{
+		"name" : "Lumberjacks Total",
+		"type" : "Value",
+		"base" : 0.3,
+		"functions" : ["MULT"],
+		"paras" : ["Pops Total"]
+	},
+	{
+		"name" : "Herdsmen Total",
+		"type" : "Value",
+		"base" : 0.3,
+		"functions" : ["MULT"],
+		"paras" : ["Pops Total"]
+	},
+	{
+		"name" : "Nobles Total",
+		"type" : "Value",
+		"base" : 0.05,
+		"functions" : ["MULT"],
+		"paras" : ["Pops Total"]
+	},
+	
+	{
+		"name" : "Wealth Distrib Shape Base",
+		"type" : "Value",
+		"base" : 5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Wealth Distrib Scale Base",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Wealth Distrib Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Farmers Wealth Distrib Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Farmers Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Farmers Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Farmers Wealth Distrib Scale",
+			"Farmers Wealth Distrib Shape A",
+			"Farmers Wealth Distrib Shape B"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Wealth Distrib Shape A",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Lumberjacks Wealth Distrib Shape B",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Lumberjacks Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 1.5,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Lumberjacks Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Lumberjacks Wealth Distrib Scale",
+			"Lumberjacks Wealth Distrib Shape A",
+			"Lumberjacks Wealth Distrib Shape B"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Wealth Distrib Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Herdsmen Wealth Distrib Shape B",
+		"type" : "Value",
+		"base" : 5,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Herdsmen Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 0.75,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Herdsmen Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Herdsmen Wealth Distrib Scale",
+			"Herdsmen Wealth Distrib Shape A",
+			"Herdsmen Wealth Distrib Shape B"
+		]
+	},
+	
+	{
+		"name" : "Nobles Wealth Distrib Shape A",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Nobles Wealth Distrib Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : ["ADD"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Nobles Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Nobles Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Nobles Wealth Distrib Scale",
+			"Nobles Wealth Distrib Shape A",
+			"Nobles Wealth Distrib Shape B"
+		]
+	}
+]
