@@ -90,14 +90,44 @@
 	},
 	
 	{
+		"name" : "Craftsmen Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Craftsmen Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Craftsmen Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Craftsmen Wealth Distrib Scale",
+			"Craftsmen Wealth Distrib Shape"
+		]
+	},
+	
+	{
 		"name" : "Pops Wealth Distrib Curve",
 		"type" : "CurveSum",
 		"curves" : [
 			"Farmers Wealth Distrib Curve",
 			"Lumberjacks Wealth Distrib Curve",
-			"Herdsmen Wealth Distrib Curve"
+			"Herdsmen Wealth Distrib Curve",
+			"Craftsmen Wealth Distrib Curve"
 		],
 		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -123,9 +153,17 @@
 			[
 				"Herdsmen Total",
 				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
+				"Pops Total"
 			]
 		],
 		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -150,6 +188,10 @@
 			],
 			[
 				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
 				"Pops Total"
 			]
 		]

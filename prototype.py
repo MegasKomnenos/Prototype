@@ -410,11 +410,13 @@ fig, ax = plt.subplots(1, 1)
 farmers_wealth = world.get_item("Farmers Wealth Distrib Curve")
 lumberjacks_wealth = world.get_item("Lumberjacks Wealth Distrib Curve")
 herdsmen_wealth = world.get_item("Herdsmen Wealth Distrib Curve")
+craftsmen_wealth = world.get_item("Craftsmen Wealth Distrib Curve")
 pops_wealth = world.get_item("Pops Wealth Distrib Curve")
 
 farmers_total = world.get_item("Farmers Total")
 lumberjacks_total = world.get_item("Lumberjacks Total")
 herdsmen_total = world.get_item("Herdsmen Total")
+craftsmen_total = world.get_item("Craftsmen Total")
 pops_total = world.get_item("Pops Total")
 
 size = int(400*pops_wealth.do_query(Query.MEAN))
@@ -424,11 +426,13 @@ x = np.linspace(0.01, 4*pops_wealth.do_query(Query.MEAN), size)
 farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.PDF, xx) for xx in x]
 lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.PDF, xx) for xx in x]
 herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.PDF, xx) for xx in x]
+craftsmen_y = [craftsmen_total.value * craftsmen_wealth.do_query(Query.PDF, xx) for xx in x]
 pops_y = [pops_total.value * pops_wealth.do_query(Query.PDF, xx) for xx in x]
 
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
+ax.plot(x, craftsmen_y, 'black', alpha=0.6)
 ax.plot(x, pops_y, 'teal', alpha=0.6)
 
 fig, ax = plt.subplots(1, 1)
@@ -451,6 +455,7 @@ fig, ax = plt.subplots(1, 1)
 farmers_skill = world.get_item("Farmers Skill Distrib Curve")
 lumberjacks_skill = world.get_item("Lumberjacks Skill Distrib Curve")
 herdsmen_skill = world.get_item("Herdsmen Skill Distrib Curve")
+craftsmen_skill = world.get_item("Craftsmen Skill Distrib Curve")
 pops_skill = world.get_item("Pops Skill Distrib Curve")
 
 size = 100
@@ -460,16 +465,13 @@ x = np.linspace(0.01, 1, size)
 farmers_y = [farmers_total.value * farmers_skill.do_query(Query.PDF, xx) for xx in x]
 lumberjacks_y = [lumberjacks_total.value * lumberjacks_skill.do_query(Query.PDF, xx) for xx in x]
 herdsmen_y = [herdsmen_total.value * herdsmen_skill.do_query(Query.PDF, xx) for xx in x]
+craftsmen_y = [craftsmen_total.value * craftsmen_skill.do_query(Query.PDF, xx) for xx in x]
 pops_y = [pops_total.value * pops_skill.do_query(Query.PDF, xx) for xx in x]
 
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, pops_y, 'teal', alpha=0.6)
-
-ax.plot(x, farmers_y, 'r-', alpha=0.6)
-ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
-ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
+ax.plot(x, craftsmen_y, 'black', alpha=0.6)
 ax.plot(x, pops_y, 'teal', alpha=0.6)
 
 print(world.get_item("Farmers Low Skill Total").value)
@@ -483,6 +485,10 @@ print(world.get_item("Lumberjacks High Skill Total").value)
 print(world.get_item("Herdsmen Low Skill Total").value)
 print(world.get_item("Herdsmen Med Skill Total").value)
 print(world.get_item("Herdsmen High Skill Total").value)
+
+print(world.get_item("Craftsmen Low Skill Total").value)
+print(world.get_item("Craftsmen Med Skill Total").value)
+print(world.get_item("Craftsmen High Skill Total").value)
 
 print(world.get_item("Pops Low Skill Total").value)
 print(world.get_item("Pops Med Skill Total").value)

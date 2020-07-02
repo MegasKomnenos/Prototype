@@ -10,7 +10,7 @@
 	{
 		"name" : "Farmers Weight",
 		"type" : "Value",
-		"base" : 3,
+		"base" : 2.5,
 		"functions" : [],
 		"paras" : []
 	},
@@ -29,6 +29,13 @@
 		"paras" : []
 	},
 	{
+		"name" : "Craftsmen Weight",
+		"type" : "Value",
+		"base" : 0.5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
 		"name" : "Total Weight",
 		"type" : "Value",
 		"base" : 0,
@@ -40,7 +47,8 @@
 		"paras" : [
 			"Farmers Weight",
 			"Lumberjacks Weight",
-			"Herdsmen Weight"
+			"Herdsmen Weight",
+			"Craftsmen Weight"
 		]
 	},
 	
@@ -85,6 +93,21 @@
 		],
 		"paras" : [
 			"Herdsmen Weight",
+			"Total Weight",
+			"Pops Total"
+		]
+	},
+	{
+		"name" : "Craftsmen Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Craftsmen Weight",
 			"Total Weight",
 			"Pops Total"
 		]
@@ -217,6 +240,48 @@
 	},
 	
 	{
+		"name" : "Craftsmen Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Craftsmen Low Skill",
+			"Craftsmen Total"
+		]
+	},
+	{
+		"name" : "Craftsmen Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Craftsmen Med Skill or Lower",
+			"Craftsmen Low Skill",
+			"Craftsmen Total"
+		]
+	},
+	{
+		"name" : "Craftsmen High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Craftsmen Med Skill or Lower",
+			"Craftsmen Total"
+		]
+	},
+	
+	{
 		"name" : "Pops Low Skill Total",
 		"type" : "Value",
 		"base" : 0,
@@ -228,7 +293,8 @@
 		"paras" : [
 			"Farmers Low Skill Total",
 			"Lumberjacks Low Skill Total",
-			"Herdsmen Low Skill Total"
+			"Herdsmen Low Skill Total",
+			"Craftsmen Low Skill Total"
 		]
 	},
 	{
@@ -243,7 +309,8 @@
 		"paras" : [
 			"Farmers Med Skill Total",
 			"Lumberjacks Med Skill Total",
-			"Herdsmen Med Skill Total"
+			"Herdsmen Med Skill Total",
+			"Craftsmen Med Skill Total"
 		]
 	},
 	{
@@ -258,7 +325,8 @@
 		"paras" : [
 			"Farmers High Skill Total",
 			"Lumberjacks High Skill Total",
-			"Herdsmen High Skill Total"
+			"Herdsmen High Skill Total",
+			"Craftsmen High Skill Total"
 		]
 	}
 ]

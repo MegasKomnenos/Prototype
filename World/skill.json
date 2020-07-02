@@ -59,7 +59,7 @@
 	{
 		"name" : "Lumberjacks Skill Weight",
 		"type" : "Value",
-		"base" : 1,
+		"base" : 0.5,
 		"functions" : [],
 		"paras" : []
 	},
@@ -155,14 +155,68 @@
 	},
 	
 	{
+		"name" : "Craftsmen Skill Weight",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Craftsmen Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Craftsmen Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Craftsmen Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Craftsmen Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"Craftsmen Skill Shape A",
+			"Craftsmen Skill Shape B"
+		]
+	},
+	
+	{
 		"name" : "Pops Skill Distrib Curve",
 		"type" : "CurveSum",
 		"curves" : [
 			"Farmers Skill Distrib Curve",
 			"Lumberjacks Skill Distrib Curve",
-			"Herdsmen Skill Distrib Curve"
+			"Herdsmen Skill Distrib Curve",
+			"Craftsmen Skill Distrib Curve"
 		],
 		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -188,9 +242,17 @@
 			[
 				"Herdsmen Total",
 				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
+				"Pops Total"
 			]
 		],
 		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -215,6 +277,10 @@
 			],
 			[
 				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
 				"Pops Total"
 			]
 		]
@@ -273,6 +339,25 @@
 		"base" : 0.75,
 		"query" : "CDF",
 		"curve" : "Herdsmen Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
+		"name" : "Craftsmen Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "Craftsmen Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Craftsmen Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "Craftsmen Skill Distrib Curve",
 		"paras" : [],
 		"functions" : []
 	}
