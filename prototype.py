@@ -26,9 +26,9 @@ class Query(Enum):
     MEAN = 3
 
 class Curve:
-    def __init__(self, distrib, *paras):
+    def __init__(self, distrib, paras):
         self.distrib = distrib
-        self.paras = list(paras)
+        self.paras = paras
         self.update = False
 
         self.children = []
@@ -302,38 +302,21 @@ class WorldLoader:
                     )
                 elif typ == 'Curve':
                     distrib = obj['distrib']
-                    paras = [world.get_item(para) for para in obj['paras']]
                     
                     if distrib == 'gamma':
-                        world.add_item(
-                            name,
-                            Curve(
-                                gamma,
-                                paras[0],
-                                paras[1],
-                                paras[2]
-                            )
-                        )
+                        distrib = gamma
                     elif distrib == 'beta':
-                        world.add_item(
-                            name,
-                            Curve(
-                                beta,
-                                paras[0],
-                                paras[1],
-                                paras[2],
-                                paras[3]
-                            )
-                        )
+                        distrib = beta
                     elif distrib == 'normal':
-                        world.add_item(
-                            name,
-                            Curve(
-                                normal,
-                                paras[0],
-                                paras[1]
-                            )
+                        distrib = normal
+
+                    world.add_item(
+                        name,
+                        Curve(
+                            distrib,
+                            [world.get_item(para) for para in obj['paras']]
                         )
+                    )
                 elif typ == 'Value':
                     world.add_item(
                         name,
