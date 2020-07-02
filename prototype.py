@@ -10,6 +10,8 @@ import json
 import glob
 
 SET = lambda x, para : para
+MAX = lambda x, para : max(x, para)
+MIN = lambda x, para : min(x, para)
 MULT = lambda x, para : x * para
 DIV = lambda x, para : x / para
 ADD = lambda x, para : x + para
@@ -395,6 +397,10 @@ def run_helper(funct, paras, x=None):
 def str_2_function(string):
     if string == 'SET':
         return SET
+    elif string == 'MAX':
+        return MAX
+    elif string == 'MIN':
+        return MIN
     elif string == 'MULT':
         return MULT
     elif string == 'DIV':
