@@ -9,6 +9,7 @@ import math
 import json
 import glob
 
+SET = lambda x, para : para
 MULT = lambda x, para : x * para
 DIV = lambda x, para : x / para
 ADD = lambda x, para : x + para
@@ -392,7 +393,9 @@ def run_helper(funct, paras, x=None):
     return None
 
 def str_2_function(string):
-    if string == 'MULT':
+    if string == 'SET':
+        return SET
+    elif string == 'MULT':
         return MULT
     elif string == 'DIV':
         return DIV
