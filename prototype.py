@@ -164,6 +164,9 @@ class Value:
             
             self.base = base
 
+    def change_base(self, function, para):
+        self.set_base(function(self.base, para))
+
 class Instance(Value):
     def __init__(self, base, query, curve, functions=None, paras=None):
         self.query = query
