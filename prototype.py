@@ -5,13 +5,13 @@ from collections import ChainMap
 from enum import Enum
 from bitarray.util import count_and
 from bitarray import bitarray as bitmap
-from multiprocessing import Pool, TimeoutError
 
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 import json
 import glob
+import time
+import math
 
 SET = lambda x, para : para
 MAX = lambda x, para : max(x, para)
@@ -259,20 +259,14 @@ class World:
             for name, system in systems.items():
                 if not count_and(self.systems_bitmap, system.parents) and not count_and(self.values_bitmap, system.values):
                     self.values_bitmap = self.values_bitmap | system.values
-                    
+
                     lst.append((name, system))
 
             if lst:
-                pool = Pool()
-                
                 for name, system in lst:
                     systems.pop(name)
                     self.systems_bitmap[self.systems_id[name]] = False
-                    
-                    pool.apply_async(system.do_run, (system,))
-
-                pool.close()
-                pool.join()
+                    system.do_run()
             else:
                 break
         
@@ -493,6 +487,9 @@ def parse_list(item):
         return dict(ChainMap(*item))
     else:
         return dict()
+
+def chunkify(lst, n):
+    return [lst[i::n] for i in range(n)]
                         
 if __name__ == '__main__':
     loader = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World')
@@ -613,6 +610,8 @@ if __name__ == '__main__':
     world.add_system("Foo", System())
     world.add_system("Apple", System())
     world.add_system("Bar", System(), ["Foo"])
+    world.add_system("Peach", System(), ["Apple", "Bar"])
+    
 
     world.do_run()
 
