@@ -115,15 +115,45 @@
 	},
 	
 	{
+		"name" : "Nobles Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : 15,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Nobles Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 0.5,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Nobles Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Nobles Wealth Distrib Scale",
+			"Nobles Wealth Distrib Shape"
+		]
+	},
+	
+	{
 		"name" : "Pops Wealth Distrib Curve",
 		"type" : "CurveSum",
 		"curves" : [
 			"Farmers Wealth Distrib Curve",
 			"Lumberjacks Wealth Distrib Curve",
 			"Herdsmen Wealth Distrib Curve",
-			"Craftsmen Wealth Distrib Curve"
+			"Craftsmen Wealth Distrib Curve",
+			"Nobles Wealth Distrib Curve"
 		],
 		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -157,9 +187,17 @@
 			[
 				"Craftsmen Total",
 				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
 			]
 		],
 		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -192,6 +230,10 @@
 			],
 			[
 				"Craftsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
 				"Pops Total"
 			]
 		]

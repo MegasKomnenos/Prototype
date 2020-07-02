@@ -204,15 +204,69 @@
 	},
 	
 	{
+		"name" : "Nobles Skill Weight",
+		"type" : "Value",
+		"base" : 9,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Nobles Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Nobles Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Nobles Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Nobles Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"Nobles Skill Shape A",
+			"Nobles Skill Shape B"
+		]
+	},
+	
+	{
 		"name" : "Pops Skill Distrib Curve",
 		"type" : "CurveSum",
 		"curves" : [
 			"Farmers Skill Distrib Curve",
 			"Lumberjacks Skill Distrib Curve",
 			"Herdsmen Skill Distrib Curve",
-			"Craftsmen Skill Distrib Curve"
+			"Craftsmen Skill Distrib Curve",
+			"Nobles Skill Distrib Curve"
 		],
 		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -246,9 +300,17 @@
 			[
 				"Craftsmen Total",
 				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
 			]
 		],
 		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
 			[
 				"MULT",
 				"DIV"
@@ -281,6 +343,10 @@
 			],
 			[
 				"Craftsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
 				"Pops Total"
 			]
 		]
@@ -358,6 +424,25 @@
 		"base" : 0.75,
 		"query" : "CDF",
 		"curve" : "Craftsmen Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
+		"name" : "Nobles Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "Nobles Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Nobles Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "Nobles Skill Distrib Curve",
 		"paras" : [],
 		"functions" : []
 	}

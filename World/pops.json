@@ -10,7 +10,7 @@
 	{
 		"name" : "Farmers Weight",
 		"type" : "Value",
-		"base" : 2.5,
+		"base" : 2.4,
 		"functions" : [],
 		"paras" : []
 	},
@@ -36,10 +36,19 @@
 		"paras" : []
 	},
 	{
+		"name" : "Nobles Weight",
+		"type" : "Value",
+		"base" : 0.1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
 		"name" : "Total Weight",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
+			"ADD",
+			"ADD",
 			"ADD",
 			"ADD",
 			"ADD"
@@ -48,7 +57,8 @@
 			"Farmers Weight",
 			"Lumberjacks Weight",
 			"Herdsmen Weight",
-			"Craftsmen Weight"
+			"Craftsmen Weight",
+			"Nobles Weight"
 		]
 	},
 	
@@ -108,6 +118,21 @@
 		],
 		"paras" : [
 			"Craftsmen Weight",
+			"Total Weight",
+			"Pops Total"
+		]
+	},
+	{
+		"name" : "Nobles Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Weight",
 			"Total Weight",
 			"Pops Total"
 		]
@@ -282,10 +307,54 @@
 	},
 	
 	{
+		"name" : "Nobles Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Low Skill",
+			"Nobles Total"
+		]
+	},
+	{
+		"name" : "Nobles Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Med Skill or Lower",
+			"Nobles Low Skill",
+			"Nobles Total"
+		]
+	},
+	{
+		"name" : "Nobles High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Med Skill or Lower",
+			"Nobles Total"
+		]
+	},
+	
+	{
 		"name" : "Pops Low Skill Total",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
+			"ADD",
+			"ADD",
 			"ADD",
 			"ADD",
 			"ADD"
@@ -294,7 +363,8 @@
 			"Farmers Low Skill Total",
 			"Lumberjacks Low Skill Total",
 			"Herdsmen Low Skill Total",
-			"Craftsmen Low Skill Total"
+			"Craftsmen Low Skill Total",
+			"Nobles Low Skill Total"
 		]
 	},
 	{
@@ -304,13 +374,16 @@
 		"functions" : [
 			"ADD",
 			"ADD",
+			"ADD",
+			"ADD",
 			"ADD"
 		],
 		"paras" : [
 			"Farmers Med Skill Total",
 			"Lumberjacks Med Skill Total",
 			"Herdsmen Med Skill Total",
-			"Craftsmen Med Skill Total"
+			"Craftsmen Med Skill Total",
+			"Nobles Med Skill Total"
 		]
 	},
 	{
@@ -320,13 +393,16 @@
 		"functions" : [
 			"ADD",
 			"ADD",
+			"ADD",
+			"ADD",
 			"ADD"
 		],
 		"paras" : [
 			"Farmers High Skill Total",
 			"Lumberjacks High Skill Total",
 			"Herdsmen High Skill Total",
-			"Craftsmen High Skill Total"
+			"Craftsmen High Skill Total",
+			"Nobles High Skill Total"
 		]
 	}
 ]

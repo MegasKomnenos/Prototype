@@ -10,7 +10,7 @@
 	{
 		"name" : "Farmers Preference",
 		"type" : "Value",
-		"base" : 2.5,
+		"base" : 2.4,
 		"functions" : [],
 		"paras" : []
 	},
@@ -36,10 +36,19 @@
 		"paras" : []
 	},
 	{
+		"name" : "Nobles Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
 		"name" : "Total Preference",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
+			"ADD",
+			"ADD",
 			"ADD",
 			"ADD",
 			"ADD"
@@ -48,7 +57,8 @@
 			"Farmers Preference",
 			"Lumberjacks Preference",
 			"Herdsmen Preference",
-			"Craftsmen Preference"
+			"Craftsmen Preference",
+			"Nobles Preference"
 		]
 	}
 ]
