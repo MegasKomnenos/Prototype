@@ -26,13 +26,7 @@
 			"Maximum Workhour"
 		]
 	},
-	{
-		"name" : "Labor Drive",
-		"type" : "Value",
-		"base" : 6,
-		"functions" : [],
-		"paras" : []
-	},
+	
 	{
 		"name" : "Labor Shape Base",
 		"type" : "Value",

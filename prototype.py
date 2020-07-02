@@ -437,7 +437,7 @@ pops_y = [pops_total.value * pops_wealth.do_query(Query.PDF, xx) for xx in x]
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, pops_y, 'black', alpha=0.6)
+ax.plot(x, pops_y, 'teal', alpha=0.6)
 
 fig, ax = plt.subplots(1, 1)
 
@@ -449,7 +449,7 @@ pops_y = [pops_total.value * pops_wealth.do_query(Query.CDF, xx) for xx in x]
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, pops_y, 'black', alpha=0.6)
+ax.plot(x, pops_y, 'teal', alpha=0.6)
 
 print(farmers_wealth.do_query(Query.MEAN))
 print(lumberjacks_wealth.do_query(Query.MEAN))

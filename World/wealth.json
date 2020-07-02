@@ -1,0 +1,157 @@
+[
+	{
+		"name" : "Wealth Distrib Shape Base",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Wealth Distrib Scale Base",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Farmers Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Farmers Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Farmers Wealth Distrib Scale",
+			"Farmers Wealth Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Lumberjacks Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 0.75,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Lumberjacks Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Lumberjacks Wealth Distrib Scale",
+			"Lumberjacks Wealth Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : 0.75,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Shape Base"]
+	},
+	{
+		"name" : "Herdsmen Wealth Distrib Scale",
+		"type" : "Value",
+		"base" : 0.75,
+		"functions" : ["MULT"],
+		"paras" : ["Wealth Distrib Scale Base"]
+	},
+	{
+		"name" : "Herdsmen Wealth Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Herdsmen Wealth Distrib Scale",
+			"Herdsmen Wealth Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Pops Wealth Distrib Curve",
+		"type" : "CurveSum",
+		"curves" : [
+			"Farmers Wealth Distrib Curve",
+			"Lumberjacks Wealth Distrib Curve",
+			"Herdsmen Wealth Distrib Curve"
+		],
+		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			]
+		],
+		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras_mean" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			]
+		]
+	}
+]

@@ -1,0 +1,46 @@
+[
+	{
+		"name" : "Labor Drive",
+		"type" : "Value",
+		"base" : 6,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Preference",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Total Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Preference",
+			"Lumberjacks Preference",
+			"Herdsmen Preference"
+		]
+	}
+]
