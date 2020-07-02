@@ -467,4 +467,21 @@ ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
 ax.plot(x, pops_y, 'teal', alpha=0.6)
 
+ax.plot(x, farmers_y, 'r-', alpha=0.6)
+ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
+ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
+ax.plot(x, pops_y, 'teal', alpha=0.6)
+
+print(world.get_item("Farmers Low Skill Total").value)
+print(world.get_item("Farmers Med Skill Total").value)
+print(world.get_item("Farmers High Skill Total").value)
+
+print(world.get_item("Lumberjacks Low Skill Total").value)
+print(world.get_item("Lumberjacks Med Skill Total").value)
+print(world.get_item("Lumberjacks High Skill Total").value)
+
+print(world.get_item("Herdsmen Low Skill Total").value)
+print(world.get_item("Herdsmen Med Skill Total").value)
+print(world.get_item("Herdsmen High Skill Total").value)
+
 plt.show()

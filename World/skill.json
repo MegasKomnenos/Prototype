@@ -59,7 +59,7 @@
 	{
 		"name" : "Lumberjacks Skill Weight",
 		"type" : "Value",
-		"base" : -0.5,
+		"base" : 1,
 		"functions" : [],
 		"paras" : []
 	},
@@ -108,7 +108,7 @@
 	{
 		"name" : "Herdsmen Skill Weight",
 		"type" : "Value",
-		"base" : -2,
+		"base" : -3,
 		"functions" : [],
 		"paras" : []
 	},
@@ -218,5 +218,62 @@
 				"Pops Total"
 			]
 		]
+	},
+	
+	{
+		"name" : "Farmers Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "Farmers Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Farmers Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "Farmers Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
+		"name" : "Lumberjacks Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "Lumberjacks Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Lumberjacks Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "Lumberjacks Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
+		"name" : "Herdsmen Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "Herdsmen Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Herdsmen Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "Herdsmen Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
 	}
 ]

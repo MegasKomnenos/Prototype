@@ -88,5 +88,131 @@
 			"Total Weight",
 			"Pops Total"
 		]
+	},
+	
+	{
+		"name" : "Farmers Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Low Skill",
+			"Farmers Total"
+		]
+	},
+	{
+		"name" : "Farmers Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Med Skill or Lower",
+			"Farmers Low Skill",
+			"Farmers Total"
+		]
+	},
+	{
+		"name" : "Farmers High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Med Skill or Lower",
+			"Farmers Total"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Lumberjacks Low Skill",
+			"Lumberjacks Total"
+		]
+	},
+	{
+		"name" : "Lumberjacks Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Lumberjacks Med Skill or Lower",
+			"Lumberjacks Low Skill",
+			"Lumberjacks Total"
+		]
+	},
+	{
+		"name" : "Lumberjacks High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Lumberjacks Med Skill or Lower",
+			"Lumberjacks Total"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Herdsmen Low Skill",
+			"Herdsmen Total"
+		]
+	},
+	{
+		"name" : "Herdsmen Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Herdsmen Med Skill or Lower",
+			"Herdsmen Low Skill",
+			"Herdsmen Total"
+		]
+	},
+	{
+		"name" : "Herdsmen High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"Herdsmen Med Skill or Lower",
+			"Herdsmen Total"
+		]
 	}
 ]
