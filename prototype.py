@@ -477,21 +477,32 @@ ax.plot(x, pops_y, 'teal', alpha=0.6)
 print(world.get_item("Farmers Low Skill Total").value)
 print(world.get_item("Farmers Med Skill Total").value)
 print(world.get_item("Farmers High Skill Total").value)
+print('----------------------------')
 
 print(world.get_item("Lumberjacks Low Skill Total").value)
 print(world.get_item("Lumberjacks Med Skill Total").value)
 print(world.get_item("Lumberjacks High Skill Total").value)
+print('----------------------------')
 
 print(world.get_item("Herdsmen Low Skill Total").value)
 print(world.get_item("Herdsmen Med Skill Total").value)
 print(world.get_item("Herdsmen High Skill Total").value)
+print('----------------------------')
 
 print(world.get_item("Craftsmen Low Skill Total").value)
 print(world.get_item("Craftsmen Med Skill Total").value)
 print(world.get_item("Craftsmen High Skill Total").value)
+print('----------------------------')
 
 print(world.get_item("Pops Low Skill Total").value)
 print(world.get_item("Pops Med Skill Total").value)
 print(world.get_item("Pops High Skill Total").value)
+print('----------------------------')
+
+print(world.get_item("Farmers Labor").value)
+print(world.get_item("Lumberjacks Labor").value)
+print(world.get_item("Herdsmen Labor").value)
+print(world.get_item("Craftsmen Labor").value)
+print('----------------------------')
 
 plt.show()
