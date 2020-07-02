@@ -450,19 +450,17 @@ ax.plot(x, pops_y, 'teal', alpha=0.6)
 
 fig, ax = plt.subplots(1, 1)
 
-farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.CDF, xx) for xx in x]
-lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.CDF, xx) for xx in x]
-herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.CDF, xx) for xx in x]
-pops_y = [pops_total.value * pops_wealth.do_query(Query.CDF, xx) for xx in x]
+workhour = world.get_item("Workhour Distrib Curve")
+leisure = world.get_item("Leisure Distrib Curve")
 
-ax.plot(x, farmers_y, 'r-', alpha=0.6)
-ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
-ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, pops_y, 'teal', alpha=0.6)
+size = int(100*world.get_item("Hours in Day").value)
 
-print(farmers_wealth.do_query(Query.MEAN))
-print(lumberjacks_wealth.do_query(Query.MEAN))
-print(herdsmen_wealth.do_query(Query.MEAN))
-print(pops_wealth.do_query(Query.MEAN))
+x = np.linspace(0.01, world.get_item("Hours in Day").value, size)
+
+workhour_y = [workhour.do_query(Query.PDF, xx) for xx in x]
+leisure_y = [leisure.do_query(Query.PDF, xx) for xx in x]
+
+ax.plot(x, workhour_y, 'r-', alpha=0.6)
+ax.plot(x, leisure_y, 'b-', alpha=0.6)
 
 plt.show()

@@ -30,23 +30,41 @@
 	{
 		"name" : "Labor Shape Base",
 		"type" : "Value",
-		"base" : 4,
+		"base" : 3,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Labor Shape",
+		"name" : "Labor Shape A",
 		"type" : "Value",
-		"base" : 1,
+		"base" : 0,
 		"functions" : [
-			"MULT",
-			"ADD"
+			"SET",
+			"ADD",
+			"MAX"
 		],
 		"paras" : [
 			"Labor Shape Base",
-			"Labor Drive"
+			"Labor Drive",
+			"Labor Shape Base"
 		]
 	},
+	{
+		"name" : "Labor Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Labor Shape Base",
+			"Labor Drive",
+			"Labor Shape Base"
+		]
+	},
+	
 	{
 		"name" : "Workhour Distrib Curve",
 		"type" : "Curve",
@@ -54,8 +72,8 @@
 		"paras" : [
 			"0",
 			"Maximum Workhour",
-			"Labor Shape",
-			"Labor Shape Base"
+			"Labor Shape A",
+			"Labor Shape B"
 		]
 	},
 	{
@@ -65,10 +83,11 @@
 		"paras" : [
 			"Minimum Leisure",
 			"Maximum Workhour",
-			"Labor Shape Base",
-			"Labor Shape"
+			"Labor Shape B",
+			"Labor Shape A"
 		]
 	},
+	
 	{
 		"name" : "Average Workhour",
 		"type" : "Instance",

@@ -2,7 +2,7 @@
 	{
 		"name" : "Labor Drive",
 		"type" : "Value",
-		"base" : 6,
+		"base" : 3,
 		"functions" : [],
 		"paras" : []
 	},
