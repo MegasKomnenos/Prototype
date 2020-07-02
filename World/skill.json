@@ -1,0 +1,222 @@
+[
+	{
+		"name" : "Skill Shape Base",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Skill Weight",
+		"type" : "Value",
+		"base" : -1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Farmers Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Farmers Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Farmers Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Farmers Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"Farmers Skill Shape A",
+			"Farmers Skill Shape B"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Skill Weight",
+		"type" : "Value",
+		"base" : -0.5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Lumberjacks Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Lumberjacks Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Lumberjacks Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Lumberjacks Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"Lumberjacks Skill Shape A",
+			"Lumberjacks Skill Shape B"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Skill Weight",
+		"type" : "Value",
+		"base" : -2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Herdsmen Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Herdsmen Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"Herdsmen Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "Herdsmen Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"Herdsmen Skill Shape A",
+			"Herdsmen Skill Shape B"
+		]
+	},
+	
+	{
+		"name" : "Pops Skill Distrib Curve",
+		"type" : "CurveSum",
+		"curves" : [
+			"Farmers Skill Distrib Curve",
+			"Lumberjacks Skill Distrib Curve",
+			"Herdsmen Skill Distrib Curve"
+		],
+		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			]
+		],
+		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras_mean" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			]
+		]
+	}
+]
