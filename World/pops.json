@@ -8,69 +8,84 @@
 	},
 	
 	{
+		"name" : "Farmers Weight",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Total Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Weight",
+			"Lumberjacks Weight",
+			"Herdsmen Weight"
+		]
+	},
+	
+	{
 		"name" : "Farmers Total",
 		"type" : "Value",
-		"base" : 0.6,
-		"functions" : ["MULT"],
-		"paras" : ["Pops Total"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Weight",
+			"Total Weight",
+			"Pops Total"
+		]
 	},
 	{
 		"name" : "Lumberjacks Total",
 		"type" : "Value",
-		"base" : 0.2,
-		"functions" : ["MULT"],
-		"paras" : ["Pops Total"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Lumberjacks Weight",
+			"Total Weight",
+			"Pops Total"
+		]
 	},
 	{
 		"name" : "Herdsmen Total",
 		"type" : "Value",
-		"base" : 0.2,
-		"functions" : ["MULT"],
-		"paras" : ["Pops Total"]
-	},
-	
-	{
-		"name" : "Farmers Ideal",
-		"type" : "Value",
-		"base" : 1,
+		"base" : 0,
 		"functions" : [
-			"MULT",
+			"SET",
 			"DIV",
 			"MULT"
 		],
 		"paras" : [
-			"Farmers Preference",
-			"Total Preference",
-			"Pops Total"
-		]
-	},
-	{
-		"name" : "Lumberjacks Ideal",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"MULT",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Lumberjacks Preference",
-			"Total Preference",
-			"Pops Total"
-		]
-	},
-	{
-		"name" : "Herdsmen Ideal",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"MULT",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Herdsmen Preference",
-			"Total Preference",
+			"Herdsmen Weight",
+			"Total Weight",
 			"Pops Total"
 		]
 	}
