@@ -418,29 +418,25 @@ fig, ax = plt.subplots(1, 1)
 farmers_wealth = world.get_item("Farmers Wealth Distrib Curve")
 lumberjacks_wealth = world.get_item("Lumberjacks Wealth Distrib Curve")
 herdsmen_wealth = world.get_item("Herdsmen Wealth Distrib Curve")
-nobles_wealth = world.get_item("Nobles Wealth Distrib Curve")
 pops_wealth = world.get_item("Pops Wealth Distrib Curve")
 
 farmers_total = world.get_item("Farmers Total")
 lumberjacks_total = world.get_item("Lumberjacks Total")
 herdsmen_total = world.get_item("Herdsmen Total")
-nobles_total = world.get_item("Nobles Total")
 pops_total = world.get_item("Pops Total")
 
-size = int(200*nobles_wealth.do_query(Query.MEAN))
+size = int(400*pops_wealth.do_query(Query.MEAN))
 
-x = np.linspace(0.01, 2*nobles_wealth.do_query(Query.MEAN), size)
+x = np.linspace(0.01, 4*pops_wealth.do_query(Query.MEAN), size)
 
 farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.PDF, xx) for xx in x]
 lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.PDF, xx) for xx in x]
 herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.PDF, xx) for xx in x]
-nobles_y = [nobles_total.value * nobles_wealth.do_query(Query.PDF, xx) for xx in x]
 pops_y = [pops_total.value * pops_wealth.do_query(Query.PDF, xx) for xx in x]
 
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, nobles_y, 'teal', alpha=0.6)
 ax.plot(x, pops_y, 'black', alpha=0.6)
 
 fig, ax = plt.subplots(1, 1)
@@ -448,19 +444,16 @@ fig, ax = plt.subplots(1, 1)
 farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.CDF, xx) for xx in x]
 lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.CDF, xx) for xx in x]
 herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.CDF, xx) for xx in x]
-nobles_y = [nobles_total.value * nobles_wealth.do_query(Query.CDF, xx) for xx in x]
 pops_y = [pops_total.value * pops_wealth.do_query(Query.CDF, xx) for xx in x]
 
 ax.plot(x, farmers_y, 'r-', alpha=0.6)
 ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
 ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
-ax.plot(x, nobles_y, 'teal', alpha=0.6)
 ax.plot(x, pops_y, 'black', alpha=0.6)
 
 print(farmers_wealth.do_query(Query.MEAN))
 print(lumberjacks_wealth.do_query(Query.MEAN))
 print(herdsmen_wealth.do_query(Query.MEAN))
-print(nobles_wealth.do_query(Query.MEAN))
 print(pops_wealth.do_query(Query.MEAN))
 
 plt.show()

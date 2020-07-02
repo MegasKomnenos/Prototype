@@ -10,7 +10,7 @@
 	{
 		"name" : "Farmers Total",
 		"type" : "Value",
-		"base" : 0.55,
+		"base" : 0.6,
 		"functions" : ["MULT"],
 		"paras" : ["Pops Total"]
 	},
@@ -25,13 +25,6 @@
 		"name" : "Herdsmen Total",
 		"type" : "Value",
 		"base" : 0.2,
-		"functions" : ["MULT"],
-		"paras" : ["Pops Total"]
-	},
-	{
-		"name" : "Nobles Total",
-		"type" : "Value",
-		"base" : 0.05,
 		"functions" : ["MULT"],
 		"paras" : ["Pops Total"]
 	},
@@ -127,44 +120,14 @@
 	},
 	
 	{
-		"name" : "Nobles Wealth Distrib Shape",
-		"type" : "Value",
-		"base" : 3,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
-	},
-	{
-		"name" : "Nobles Wealth Distrib Scale",
-		"type" : "Value",
-		"base" : 1.5,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
-	},
-	{
-		"name" : "Nobles Wealth Distrib Curve",
-		"type" : "Curve",
-		"distrib" : "gamma",
-		"paras" : [
-			"0",
-			"Nobles Wealth Distrib Scale",
-			"Nobles Wealth Distrib Shape"
-		]
-	},
-	
-	{
 		"name" : "Pops Wealth Distrib Curve",
 		"type" : "CurveSum",
 		"curves" : [
 			"Farmers Wealth Distrib Curve",
 			"Lumberjacks Wealth Distrib Curve",
-			"Herdsmen Wealth Distrib Curve",
-			"Nobles Wealth Distrib Curve"
+			"Herdsmen Wealth Distrib Curve"
 		],
 		"functions" : [
-			[
-				"MULT",
-				"DIV"
-			],
 			[
 				"MULT",
 				"DIV"
@@ -190,17 +153,9 @@
 			[
 				"Herdsmen Total",
 				"Pops Total"
-			],
-			[
-				"Nobles Total",
-				"Pops Total"
 			]
 		],
 		"functions_mean" : [
-			[
-				"MULT",
-				"DIV"
-			],
 			[
 				"MULT",
 				"DIV"
@@ -225,10 +180,6 @@
 			],
 			[
 				"Herdsmen Total",
-				"Pops Total"
-			],
-			[
-				"Nobles Total",
 				"Pops Total"
 			]
 		]
