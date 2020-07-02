@@ -214,5 +214,51 @@
 			"Herdsmen Med Skill or Lower",
 			"Herdsmen Total"
 		]
+	},
+	
+	{
+		"name" : "Pops Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Low Skill Total",
+			"Lumberjacks Low Skill Total",
+			"Herdsmen Low Skill Total"
+		]
+	},
+	{
+		"name" : "Pops Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Med Skill Total",
+			"Lumberjacks Med Skill Total",
+			"Herdsmen Med Skill Total"
+		]
+	},
+	{
+		"name" : "Pops High Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"Farmers High Skill Total",
+			"Lumberjacks High Skill Total",
+			"Herdsmen High Skill Total"
+		]
 	}
 ]

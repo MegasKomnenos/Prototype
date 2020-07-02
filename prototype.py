@@ -484,4 +484,8 @@ print(world.get_item("Herdsmen Low Skill Total").value)
 print(world.get_item("Herdsmen Med Skill Total").value)
 print(world.get_item("Herdsmen High Skill Total").value)
 
+print(world.get_item("Pops Low Skill Total").value)
+print(world.get_item("Pops Med Skill Total").value)
+print(world.get_item("Pops High Skill Total").value)
+
 plt.show()
