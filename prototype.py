@@ -516,9 +516,9 @@ if __name__ == '__main__':
     nobles_total = world.get_item("Nobles Total")
     pops_total = world.get_item("Pops Total")
 
-    size = int(200*nobles_wealth.do_query(Query.MEAN))
+    size = int(150*nobles_wealth.do_query(Query.MEAN))
 
-    x = np.linspace(0.01, 2*nobles_wealth.do_query(Query.MEAN), size)
+    x = np.linspace(0.01, 1.5*nobles_wealth.do_query(Query.MEAN), size)
 
     farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.PDF, xx) for xx in x]
     lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.PDF, xx) for xx in x]
@@ -611,12 +611,6 @@ if __name__ == '__main__':
     print(world.get_item("Herdsmen Labor").value)
     print(world.get_item("Craftsmen Labor").value)
     print('----------------------------')
-
-    world.add_system("Foo", System())
-    world.add_system("Apple", System())
-    world.add_system("Bar", System(), ["Foo"])
-    world.add_system("Peach", System(), ["Apple", "Bar"])
-    
 
     world.do_run()
 

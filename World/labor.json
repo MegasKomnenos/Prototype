@@ -143,6 +143,13 @@
 			"Farmers High Skill Labor"
 		]
 	},
+	{
+		"name" : "Farmers Labor Sold",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
 	
 	{
 		"name" : "Lumberjacks Low Skill Labor",
@@ -179,6 +186,13 @@
 			"Lumberjacks Med Skill Labor",
 			"Lumberjacks High Skill Labor"
 		]
+	},
+	{
+		"name" : "Lumberjacks Labor Sold",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
 	},
 	
 	{
@@ -217,6 +231,13 @@
 			"Herdsmen High Skill Labor"
 		]
 	},
+	{
+		"name" : "Herdsmen Labor Sold",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
 	
 	{
 		"name" : "Craftsmen Low Skill Labor",
@@ -253,5 +274,41 @@
 			"Craftsmen Med Skill Labor",
 			"Craftsmen High Skill Labor"
 		]
+	},
+	{
+		"name" : "Craftsmen Labor Sold",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Labor Bought by Nobles",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Labor Bought by Nobles",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Labor Bought by Nobles",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Labor Bought by Nobles",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
 	}
 ]

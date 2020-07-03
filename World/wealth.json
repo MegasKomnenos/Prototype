@@ -1,32 +1,43 @@
 [
 	{
-		"name" : "Wealth Distrib Shape Base",
+		"name" : "Farmers Wealth Distrib Shape",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Wealth Distrib Scale Base",
+		"name" : "Farmers Wealth",
 		"type" : "Value",
-		"base" : 1,
+		"base" : 50,
 		"functions" : [],
 		"paras" : []
 	},
-	
 	{
-		"name" : "Farmers Wealth Distrib Shape",
+		"name" : "Farmers Wealth Average",
 		"type" : "Value",
-		"base" : 1,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Farmers Wealth",
+			"Farmers Total"
+		]
 	},
 	{
 		"name" : "Farmers Wealth Distrib Scale",
 		"type" : "Value",
-		"base" : 1,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Farmers Wealth Average",
+			"Farmers Wealth Distrib Shape"
+		]
 	},
 	{
 		"name" : "Farmers Wealth Distrib Curve",
@@ -42,16 +53,42 @@
 	{
 		"name" : "Lumberjacks Wealth Distrib Shape",
 		"type" : "Value",
-		"base" : 2,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
+		"base" : 4,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Wealth",
+		"type" : "Value",
+		"base" : 30,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Wealth Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Lumberjacks Wealth",
+			"Lumberjacks Total"
+		]
 	},
 	{
 		"name" : "Lumberjacks Wealth Distrib Scale",
 		"type" : "Value",
-		"base" : 0.75,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Lumberjacks Wealth Average",
+			"Lumberjacks Wealth Distrib Shape"
+		]
 	},
 	{
 		"name" : "Lumberjacks Wealth Distrib Curve",
@@ -67,16 +104,42 @@
 	{
 		"name" : "Herdsmen Wealth Distrib Shape",
 		"type" : "Value",
-		"base" : 0.75,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
+		"base" : 1.5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Wealth",
+		"type" : "Value",
+		"base" : 20,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Wealth Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Herdsmen Wealth",
+			"Herdsmen Total"
+		]
 	},
 	{
 		"name" : "Herdsmen Wealth Distrib Scale",
 		"type" : "Value",
-		"base" : 0.75,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Herdsmen Wealth Average",
+			"Herdsmen Wealth Distrib Shape"
+		]
 	},
 	{
 		"name" : "Herdsmen Wealth Distrib Curve",
@@ -92,16 +155,42 @@
 	{
 		"name" : "Craftsmen Wealth Distrib Shape",
 		"type" : "Value",
-		"base" : 3,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
+		"base" : 6,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Wealth",
+		"type" : "Value",
+		"base" : 30,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Wealth Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Craftsmen Wealth",
+			"Craftsmen Total"
+		]
 	},
 	{
 		"name" : "Craftsmen Wealth Distrib Scale",
 		"type" : "Value",
-		"base" : 1,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Craftsmen Wealth Average",
+			"Craftsmen Wealth Distrib Shape"
+		]
 	},
 	{
 		"name" : "Craftsmen Wealth Distrib Curve",
@@ -117,16 +206,42 @@
 	{
 		"name" : "Nobles Wealth Distrib Shape",
 		"type" : "Value",
-		"base" : 15,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Shape Base"]
+		"base" : 20,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Wealth",
+		"type" : "Value",
+		"base" : 50,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Wealth Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Nobles Wealth",
+			"Nobles Total"
+		]
 	},
 	{
 		"name" : "Nobles Wealth Distrib Scale",
 		"type" : "Value",
-		"base" : 0.5,
-		"functions" : ["MULT"],
-		"paras" : ["Wealth Distrib Scale Base"]
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Nobles Wealth Average",
+			"Nobles Wealth Distrib Shape"
+		]
 	},
 	{
 		"name" : "Nobles Wealth Distrib Curve",
