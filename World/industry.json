@@ -29,14 +29,14 @@
 		"base" : 2,
 		"functions" : [],
 		"paras" : []
-	}
+	},
 	{
 		"name" : "Toolmaking Industry Timber Input",
 		"type" : "Value",
 		"base" : 1,
 		"functions" : [],
 		"paras" : []
-	}
+	},
 	{
 		"name" : "Toolmaking Industry Fiber Input",
 		"type" : "Value",
