@@ -1,0 +1,395 @@
+[
+	{
+		"name" : "Farmers Property Distrib Shape",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Property",
+		"type" : "Value",
+		"base" : 30,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Property Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Farmers Property",
+			"Farmers Total"
+		]
+	},
+	{
+		"name" : "Farmers Property Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Farmers Property Average",
+			"Farmers Property Distrib Shape"
+		]
+	},
+	{
+		"name" : "Farmers Property Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Farmers Property Distrib Scale",
+			"Farmers Property Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Property Distrib Shape",
+		"type" : "Value",
+		"base" : 4,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Property",
+		"type" : "Value",
+		"base" : 10,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Property Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Lumberjacks Property",
+			"Lumberjacks Total"
+		]
+	},
+	{
+		"name" : "Lumberjacks Property Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Lumberjacks Property Average",
+			"Lumberjacks Property Distrib Shape"
+		]
+	},
+	{
+		"name" : "Lumberjacks Property Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Lumberjacks Property Distrib Scale",
+			"Lumberjacks Property Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Property Distrib Shape",
+		"type" : "Value",
+		"base" : 1.5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Property",
+		"type" : "Value",
+		"base" : 5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Property Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Herdsmen Property",
+			"Herdsmen Total"
+		]
+	},
+	{
+		"name" : "Herdsmen Property Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Herdsmen Property Average",
+			"Herdsmen Property Distrib Shape"
+		]
+	},
+	{
+		"name" : "Herdsmen Property Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Herdsmen Property Distrib Scale",
+			"Herdsmen Property Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Craftsmen Property Distrib Shape",
+		"type" : "Value",
+		"base" : 6,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Property",
+		"type" : "Value",
+		"base" : 10,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Property Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Craftsmen Property",
+			"Craftsmen Total"
+		]
+	},
+	{
+		"name" : "Craftsmen Property Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Craftsmen Property Average",
+			"Craftsmen Property Distrib Shape"
+		]
+	},
+	{
+		"name" : "Craftsmen Property Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Craftsmen Property Distrib Scale",
+			"Craftsmen Property Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Nobles Farmers Property",
+		"type" : "Value",
+		"base" : 20,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Lumberjacks Property",
+		"type" : "Value",
+		"base" : 10,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Herdsmen Property",
+		"type" : "Value",
+		"base" : 15,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Craftsmen Property",
+		"type" : "Value",
+		"base" : 5,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Nobles Property",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD", 
+			"ADD", 
+			"ADD", 
+			"ADD"
+		],
+		"paras" : [
+			"Nobles Farmers Property",
+			"Nobles Lumberjacks Property",
+			"Nobles Herdsmen Property",
+			"Nobles Craftsmen Property"
+		]
+	},
+	{
+		"name" : "Nobles Property Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Nobles Property",
+			"Nobles Total"
+		]
+	},
+	{
+		"name" : "Nobles Property Distrib Shape",
+		"type" : "Value",
+		"base" : 20,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Property Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"Nobles Property Average",
+			"Nobles Property Distrib Shape"
+		]
+	},
+	{
+		"name" : "Nobles Property Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"Nobles Property Distrib Scale",
+			"Nobles Property Distrib Shape"
+		]
+	},
+	
+	{
+		"name" : "Pops Property Distrib Curve",
+		"type" : "CurveSum",
+		"curves" : [
+			"Farmers Property Distrib Curve",
+			"Lumberjacks Property Distrib Curve",
+			"Herdsmen Property Distrib Curve",
+			"Craftsmen Property Distrib Curve",
+			"Nobles Property Distrib Curve"
+		],
+		"functions" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
+			]
+		],
+		"functions_mean" : [
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			],
+			[
+				"MULT",
+				"DIV"
+			]
+		],
+		"paras_mean" : [
+			[
+				"Farmers Total",
+				"Pops Total"
+			],
+			[
+				"Lumberjacks Total",
+				"Pops Total"
+			],
+			[
+				"Herdsmen Total",
+				"Pops Total"
+			],
+			[
+				"Craftsmen Total",
+				"Pops Total"
+			],
+			[
+				"Nobles Total",
+				"Pops Total"
+			]
+		]
+	}
+]

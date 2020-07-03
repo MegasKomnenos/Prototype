@@ -576,6 +576,40 @@ if __name__ == '__main__':
     ax.plot(x, nobles_y, 'y', alpha=0.6)
     ax.plot(x, pops_y, 'teal', alpha=0.6)
 
+    fig, ax = plt.subplots(1, 1)
+
+    farmers_wealth = world.get_item("Farmers Property Distrib Curve")
+    lumberjacks_wealth = world.get_item("Lumberjacks Property Distrib Curve")
+    herdsmen_wealth = world.get_item("Herdsmen Property Distrib Curve")
+    craftsmen_wealth = world.get_item("Craftsmen Property Distrib Curve")
+    nobles_wealth = world.get_item("Nobles Property Distrib Curve")
+    pops_wealth = world.get_item("Pops Property Distrib Curve")
+
+    farmers_total = world.get_item("Farmers Total")
+    lumberjacks_total = world.get_item("Lumberjacks Total")
+    herdsmen_total = world.get_item("Herdsmen Total")
+    craftsmen_total = world.get_item("Craftsmen Total")
+    nobles_total = world.get_item("Nobles Total")
+    pops_total = world.get_item("Pops Total")
+
+    size = int(150*nobles_wealth.do_query(Query.MEAN))
+
+    x = np.linspace(0.01, 1.5*nobles_wealth.do_query(Query.MEAN), size)
+
+    farmers_y = [farmers_total.value * farmers_wealth.do_query(Query.PDF, xx) for xx in x]
+    lumberjacks_y = [lumberjacks_total.value * lumberjacks_wealth.do_query(Query.PDF, xx) for xx in x]
+    herdsmen_y = [herdsmen_total.value * herdsmen_wealth.do_query(Query.PDF, xx) for xx in x]
+    craftsmen_y = [craftsmen_total.value * craftsmen_wealth.do_query(Query.PDF, xx) for xx in x]
+    nobles_y = [nobles_total.value * nobles_wealth.do_query(Query.PDF, xx) for xx in x]
+    pops_y = [pops_total.value * pops_wealth.do_query(Query.PDF, xx) for xx in x]
+
+    ax.plot(x, farmers_y, 'r-', alpha=0.6)
+    ax.plot(x, lumberjacks_y, 'b-', alpha=0.6)
+    ax.plot(x, herdsmen_y, 'g-', alpha=0.6)
+    ax.plot(x, craftsmen_y, 'k', alpha=0.6)
+    ax.plot(x, nobles_y, 'y', alpha=0.6)
+    ax.plot(x, pops_y, 'teal', alpha=0.6)
+
     print(world.get_item("Farmers Low Skill Total").value)
     print(world.get_item("Farmers Med Skill Total").value)
     print(world.get_item("Farmers High Skill Total").value)
