@@ -62,7 +62,7 @@ class Curve:
         elif query == Query.MEAN:
             return run_helper(self.do_update().distrib.mean, self.paras)
         elif query == Query.PMEAN:
-            return quad(lambda x, curve : x * curve.do_query(Query.PDF, x), 0, x, args=(self,)) / self.do_query(Query.CDF, x)
+            return quad(lambda x, curve : x * curve.do_query(Query.PDF, x), 0, x, args=(self,))[0] / self.do_query(Query.CDF, x)
 
         return None
 
