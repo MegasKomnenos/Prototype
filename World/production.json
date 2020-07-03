@@ -29,7 +29,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -39,8 +39,8 @@
 			"Farmers Production Labor Factor",
 			"Farmers Production Property Factor",
 			"Farmers Property",
-			"Farmers Production Property Factor"
-			"Farmers Production Tools Factor"
+			"Farmers Production Property Factor",
+			"Farmers Production Tools Factor",
 			"Farmers Tools",
 			"Farmers Production Tools Factor"
 		]
@@ -76,7 +76,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -86,8 +86,8 @@
 			"Lumberjacks Production Labor Factor",
 			"Lumberjacks Production Property Factor",
 			"Lumberjacks Property",
-			"Lumberjacks Production Property Factor"
-			"Lumberjacks Production Tools Factor"
+			"Lumberjacks Production Property Factor",
+			"Lumberjacks Production Tools Factor",
 			"Lumberjacks Tools",
 			"Lumberjacks Production Tools Factor"
 		]
@@ -123,7 +123,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -133,8 +133,8 @@
 			"Herdsmen Production Labor Factor",
 			"Herdsmen Production Property Factor",
 			"Herdsmen Property",
-			"Herdsmen Production Property Factor"
-			"Herdsmen Production Tools Factor"
+			"Herdsmen Production Property Factor",
+			"Herdsmen Production Tools Factor",
 			"Herdsmen Tools",
 			"Herdsmen Production Tools Factor"
 		]
@@ -170,7 +170,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -180,8 +180,8 @@
 			"Craftsmen Production Labor Factor",
 			"Craftsmen Production Property Factor",
 			"Craftsmen Property",
-			"Craftsmen Production Property Factor"
-			"Craftsmen Production Tools Factor"
+			"Craftsmen Production Property Factor",
+			"Craftsmen Production Tools Factor",
 			"Craftsmen Tools",
 			"Craftsmen Production Tools Factor"
 		]
@@ -196,7 +196,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -206,8 +206,8 @@
 			"Farmers Production Labor Factor",
 			"Farmers Production Property Factor",
 			"Nobles Farmers Property",
-			"Farmers Production Property Factor"
-			"Farmers Production Tools Factor"
+			"Farmers Production Property Factor",
+			"Farmers Production Tools Factor",
 			"Nobles Farmers Tools",
 			"Farmers Production Tools Factor"
 		]
@@ -221,14 +221,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
-		],
-		"functions" : [
-			"SET",
 			"POW",
-			"ROOT",
-			"MULT",
-			"POW"
 			"ROOT",
 			"MULT",
 			"POW"
@@ -238,8 +231,8 @@
 			"Lumberjacks Production Labor Factor",
 			"Lumberjacks Production Property Factor",
 			"Nobles Lumberjacks Property",
-			"Lumberjacks Production Property Factor"
-			"Lumberjacks Production Tools Factor"
+			"Lumberjacks Production Property Factor",
+			"Lumberjacks Production Tools Factor",
 			"Nobles Lumberjacks Tools",
 			"Lumberjacks Production Tools Factor"
 		]
@@ -253,7 +246,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -263,8 +256,8 @@
 			"Herdsmen Production Labor Factor",
 			"Herdsmen Production Property Factor",
 			"Nobles Herdsmen Property",
-			"Herdsmen Production Property Factor"
-			"Herdsmen Production Tools Factor"
+			"Herdsmen Production Property Factor",
+			"Herdsmen Production Tools Factor",
 			"Nobles Herdsmen Tools",
 			"Herdsmen Production Tools Factor"
 		]
@@ -278,7 +271,7 @@
 			"POW",
 			"ROOT",
 			"MULT",
-			"POW"
+			"POW",
 			"ROOT",
 			"MULT",
 			"POW"
@@ -288,8 +281,8 @@
 			"Craftsmen Production Labor Factor",
 			"Craftsmen Production Property Factor",
 			"Nobles Craftsmen Property",
-			"Craftsmen Production Property Factor"
-			"Craftsmen Production Tools Factor"
+			"Craftsmen Production Property Factor",
+			"Craftsmen Production Tools Factor",
 			"Nobles Craftsmen Tools",
 			"Craftsmen Production Tools Factor"
 		]
