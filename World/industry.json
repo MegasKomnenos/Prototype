@@ -1,0 +1,47 @@
+[
+	{
+		"name" : "Crop Industry Food Output",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Forestry Industry Timber Output",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Livestock Industry Fiber Output",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Toolmaking Industry Tool Output",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	}
+	{
+		"name" : "Toolmaking Industry Timber Input",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	}
+	{
+		"name" : "Toolmaking Industry Fiber Input",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	}
+]
