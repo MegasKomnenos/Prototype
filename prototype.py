@@ -1,6 +1,7 @@
 from scipy.stats import gamma
 from scipy.stats import norm
 from scipy.stats import beta
+from scipy.integrate import quad
 from collections import ChainMap
 from enum import Enum
 from bitarray.util import count_and
@@ -29,6 +30,7 @@ class Query(Enum):
     CDF = 2
     PPF = 3
     MEAN = 4
+    PMEAN = 5
 
 class Curve:
     def __init__(self, distrib, paras):
@@ -59,6 +61,8 @@ class Curve:
             return run_helper(self.do_update().distrib.ppf, self.paras, x)
         elif query == Query.MEAN:
             return run_helper(self.do_update().distrib.mean, self.paras)
+        elif query == Query.PMEAN:
+            return quad(lambda x, curve : x * curve.do_query(Query.PDF, x), 0, x, args=(self,)) / self.do_query(Query.CDF, x)
 
         return None
 
@@ -112,7 +116,7 @@ class CurveSum:
         return self
 
     def do_query(self, query, x=None):
-        if query == Query.PDF or query == Query.CDF or query == Query.PPF:
+        if query == Query.PDF or query == Query.CDF or query == Query.PPF or query == Query.PMEAN:
             result = 0
 
             for i, curve in enumerate(self.curves):
@@ -409,6 +413,8 @@ class WorldLoader:
                         query = Query.PPF
                     elif query == 'MEAN':
                         query = Query.MEAN
+                    elif query == 'PMEAN':
+                        query = Query.PMEAN
 
                     world.add_item(
                         name,
