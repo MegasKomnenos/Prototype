@@ -1,6 +1,6 @@
 [
 	{
-		"name" : "Crop Industry Food Output",
+		"name" : "Crop Food Output",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
@@ -8,7 +8,7 @@
 	},
 	
 	{
-		"name" : "Forestry Industry Timber Output",
+		"name" : "Forestry Timber Output",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
@@ -16,7 +16,7 @@
 	},
 	
 	{
-		"name" : "Livestock Industry Fiber Output",
+		"name" : "Livestock Fiber Output",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
@@ -24,24 +24,460 @@
 	},
 	
 	{
-		"name" : "Toolsmaking Industry Tools Output",
+		"name" : "Toolsmaking Tools Output",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Toolmaking Industry Timber Input",
+		"name" : "Toolsmaking Timber Input",
 		"type" : "Value",
 		"base" : 1,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Toolmaking Industry Fiber Input",
+		"name" : "Toolsmaking Fiber Input",
 		"type" : "Value",
 		"base" : 1,
 		"functions" : [],
 		"paras" : []
+	},
+	
+	{
+		"name" : "Farmers Crop Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Crop Weight"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Forestry Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Lumberjacks Forestry Weight"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Livestock Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Herdsmen Livestock Weight"
+		]
+	},
+	
+	{
+		"name" : "Craftsmen Toolsmaking Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Craftsmen Toolsmaking Weight"
+		]
+	},
+	
+	{
+		"name" : "Nobles Farmers Crop Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Farmers Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Nobles Farmers Crop Weight"
+		]
+	},
+	
+	{
+		"name" : "Nobles Lumberjacks Forestry Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Lumberjacks Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Nobles Lumberjacks Forestry Weight"
+		]
+	},
+	
+	{
+		"name" : "Nobles Herdsmen Livestock Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Herdsmen Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Nobles Herdsmen Livestock Weight"
+		]
+	},
+	
+	{
+		"name" : "Nobles Craftsmen Toolsmaking Weight",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Nobles Craftsmen Industry Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Nobles Craftsmen Toolsmaking Weight"
+		]
+	},
+	
+	{
+		"name" : "Farmers Crop",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Crop Weight",
+			"Farmers Industry Weight",
+			"Farmers Production"
+		]
+	},
+	{
+		"name" : "Farmers Crop Food Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Crop Food Output",
+			"Farmers Crop"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Forestry",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Lumberjacks Forestry Weight",
+			"Lumberjacks Industry Weight",
+			"Lumberjacks Production"
+		]
+	},
+	{
+		"name" : "Lumberjacks Forestry Timber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Forestry Timber Output",
+			"Lumberjacks Forestry"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Livestock",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Herdsmen Livestock Weight",
+			"Herdsmen Industry Weight",
+			"Herdsmen Production"
+		]
+	},
+	{
+		"name" : "Herdsmen Livestock Fiber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Livestock Fiber Output",
+			"Herdsmen Livestock"
+		]
+	},
+	
+	{
+		"name" : "Craftsmen Toolsmaking",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Craftsmen Toolsmaking Weight",
+			"Craftsmen Industry Weight",
+			"Craftsmen Production"
+		]
+	},
+	{
+		"name" : "Craftsmen Toolsmaking Tools Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Tools Output",
+			"Craftsmen Toolsmaking"
+		]
+	},
+	{
+		"name" : "Craftsmen Toolsmaking Timber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Timber Input",
+			"Craftsmen Toolsmaking"
+		]
+	},
+	{
+		"name" : "Craftsmen Toolsmaking Fiber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Fiber Input",
+			"Craftsmen Toolsmaking"
+		]
+	},
+	
+	{
+		"name" : "Nobles Farmers Crop",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Farmers Crop Weight",
+			"Nobles Farmers Industry Weight",
+			"Nobles Farmers Production"
+		]
+	},
+	{
+		"name" : "Nobles Farmers Crop Food Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Crop Food Output",
+			"Nobles Farmers Crop"
+		]
+	},
+	
+	{
+		"name" : "Nobles Lumberjacks Forestry",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Lumberjacks Forestry Weight",
+			"Nobles Lumberjacks Industry Weight",
+			"Nobles Lumberjacks Production"
+		]
+	},
+	{
+		"name" : "Nobles Lumberjacks Forestry Timber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Forestry Timber Output",
+			"Nobles Lumberjacks Forestry"
+		]
+	},
+	
+	{
+		"name" : "Nobles Herdsmen Livestock",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Herdsmen Livestock Weight",
+			"Nobles Herdsmen Industry Weight",
+			"Nobles Herdsmen Production"
+		]
+	},
+	{
+		"name" : "Nobles Herdsmen Livestock Fiber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Livestock Fiber Output",
+			"Nobles Herdsmen Livestock"
+		]
+	},
+	
+	{
+		"name" : "Nobles Craftsmen Toolsmaking",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"Nobles Craftsmen Toolsmaking Weight",
+			"Nobles Craftsmen Industry Weight",
+			"Nobles Craftsmen Production"
+		]
+	},
+	{
+		"name" : "Nobles Craftsmen Toolsmaking Tools Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Tools Output",
+			"Nobles Craftsmen Toolsmaking"
+		]
+	},
+	{
+		"name" : "Nobles Craftsmen Toolsmaking Timber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Timber Input",
+			"Nobles Craftsmen Toolsmaking"
+		]
+	},
+	{
+		"name" : "Nobles Craftsmen Toolsmaking Fiber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Toolsmaking Fiber Input",
+			"Nobles Craftsmen Toolsmaking"
+		]
 	}
 ]
