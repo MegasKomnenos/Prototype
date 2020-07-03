@@ -2,14 +2,21 @@
 	{
 		"name" : "Farmers Production Labor Factor",
 		"type" : "Value",
-		"base" : 0.5,
+		"base" : 0.4,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Farmers Production Property Factor",
 		"type" : "Value",
-		"base" : 0.5,
+		"base" : 0.4,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Production Tools Factor",
+		"type" : "Value",
+		"base" : 0.2,
 		"functions" : [],
 		"paras" : []
 	},
@@ -23,6 +30,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Farmers Labor",
@@ -30,20 +40,30 @@
 			"Farmers Production Property Factor",
 			"Farmers Property",
 			"Farmers Production Property Factor"
+			"Farmers Production Tools Factor"
+			"Farmers Tools",
+			"Farmers Production Tools Factor"
 		]
 	},
 	
 	{
 		"name" : "Lumberjacks Production Labor Factor",
 		"type" : "Value",
-		"base" : 0.4,
+		"base" : 0.3,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Lumberjacks Production Property Factor",
 		"type" : "Value",
-		"base" : 0.6,
+		"base" : 0.5,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Production Tools Factor",
+		"type" : "Value",
+		"base" : 0.2,
 		"functions" : [],
 		"paras" : []
 	},
@@ -57,6 +77,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Lumberjacks Labor",
@@ -64,13 +87,16 @@
 			"Lumberjacks Production Property Factor",
 			"Lumberjacks Property",
 			"Lumberjacks Production Property Factor"
+			"Lumberjacks Production Tools Factor"
+			"Lumberjacks Tools",
+			"Lumberjacks Production Tools Factor"
 		]
 	},
 	
 	{
 		"name" : "Herdsmen Production Labor Factor",
 		"type" : "Value",
-		"base" : 0.3,
+		"base" : 0.25,
 		"functions" : [],
 		"paras" : []
 	},
@@ -78,6 +104,13 @@
 		"name" : "Herdsmen Production Property Factor",
 		"type" : "Value",
 		"base" : 0.7,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Production Tools Factor",
+		"type" : "Value",
+		"base" : 0.05,
 		"functions" : [],
 		"paras" : []
 	},
@@ -91,6 +124,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Herdsmen Labor",
@@ -98,20 +134,30 @@
 			"Herdsmen Production Property Factor",
 			"Herdsmen Property",
 			"Herdsmen Production Property Factor"
+			"Herdsmen Production Tools Factor"
+			"Herdsmen Tools",
+			"Herdsmen Production Tools Factor"
 		]
 	},
 	
 	{
 		"name" : "Craftsmen Production Labor Factor",
 		"type" : "Value",
-		"base" : 0.6,
+		"base" : 0.45,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Craftsmen Production Property Factor",
 		"type" : "Value",
-		"base" : 0.4,
+		"base" : 0.45,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Production Tools Factor",
+		"type" : "Value",
+		"base" : 0.1,
 		"functions" : [],
 		"paras" : []
 	},
@@ -125,6 +171,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Craftsmen Labor",
@@ -132,6 +181,9 @@
 			"Craftsmen Production Property Factor",
 			"Craftsmen Property",
 			"Craftsmen Production Property Factor"
+			"Craftsmen Production Tools Factor"
+			"Craftsmen Tools",
+			"Craftsmen Production Tools Factor"
 		]
 	},
 	
@@ -145,6 +197,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Nobles Farmers Labor",
@@ -152,6 +207,9 @@
 			"Farmers Production Property Factor",
 			"Nobles Farmers Property",
 			"Farmers Production Property Factor"
+			"Farmers Production Tools Factor"
+			"Nobles Farmers Tools",
+			"Farmers Production Tools Factor"
 		]
 	},
 	{
@@ -165,12 +223,25 @@
 			"MULT",
 			"POW"
 		],
+		"functions" : [
+			"SET",
+			"POW",
+			"ROOT",
+			"MULT",
+			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
+		],
 		"paras" : [
 			"Nobles Lumberjacks Labor",
 			"Lumberjacks Production Labor Factor",
 			"Lumberjacks Production Property Factor",
 			"Nobles Lumberjacks Property",
 			"Lumberjacks Production Property Factor"
+			"Lumberjacks Production Tools Factor"
+			"Nobles Lumberjacks Tools",
+			"Lumberjacks Production Tools Factor"
 		]
 	},
 	{
@@ -183,6 +254,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Nobles Herdsmen Labor",
@@ -190,6 +264,9 @@
 			"Herdsmen Production Property Factor",
 			"Nobles Herdsmen Property",
 			"Herdsmen Production Property Factor"
+			"Herdsmen Production Tools Factor"
+			"Nobles Herdsmen Tools",
+			"Herdsmen Production Tools Factor"
 		]
 	},
 	{
@@ -202,6 +279,9 @@
 			"ROOT",
 			"MULT",
 			"POW"
+			"ROOT",
+			"MULT",
+			"POW"
 		],
 		"paras" : [
 			"Nobles Craftsmen Labor",
@@ -209,6 +289,9 @@
 			"Craftsmen Production Property Factor",
 			"Nobles Craftsmen Property",
 			"Craftsmen Production Property Factor"
+			"Craftsmen Production Tools Factor"
+			"Nobles Craftsmen Tools",
+			"Craftsmen Production Tools Factor"
 		]
 	}
 ]
