@@ -506,8 +506,7 @@ def parse_list(item):
         return dict()
                         
 if __name__ == '__main__':
-    loader = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World')
-    world = loader.gen()
+    world = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World').gen()
 
     fig, ax = plt.subplots(1, 1)
 
