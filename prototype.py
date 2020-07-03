@@ -1,14 +1,13 @@
-from scipy.stats import gamma
-from scipy.stats import norm
-from scipy.stats import beta
+from scipy.stats import gamma, beta, norm, truncnorm
 from scipy.integrate import quad
+from scipy.special import gammainc
 from collections import ChainMap
 from enum import Enum
 from bitarray.util import count_and
 from bitarray import bitarray as bitmap
+from numpy import linspace
 
 import matplotlib.pyplot as plt
-import numpy as np
 import json
 import glob
 import time
@@ -62,7 +61,14 @@ class Curve:
         elif query == Query.MEAN:
             return run_helper(self.do_update().distrib.mean, self.paras)
         elif query == Query.PMEAN:
-            return quad(lambda x, curve : x * curve.do_query(Query.PDF, x), 0, x, args=(self,))[0] / self.do_query(Query.CDF, x)
+            if type(self.distrib) == type(beta):
+                return self.paras[2].value / (self.paras[2].value + self.paras[3].value) * beta.cdf(x, self.paras[2].value + 1, self.paras[3].value, self.paras[0].value, self.paras[1].value) / self.do_query(Query.CDF, x)
+            elif type(self.distrib) == type(gamma):
+                return self.paras[1].value * (self.paras[2].value - (math.pow(x, self.paras[2].value) * math.exp(-x) / gammainc(self.paras[2].value, x)))
+            elif type(self.distrib) == type(norm):
+                return truncnorm.mean(0, x, self.paras[0], self.paras[1])
+            else:
+                return quad(lambda x, curve : x * curve.do_query(Query.PDF, x), 0, x, args=(self,))[0] / self.do_query(Query.CDF, x)
 
         return None
 
