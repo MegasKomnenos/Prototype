@@ -498,9 +498,6 @@ def parse_list(item):
         return dict(ChainMap(*item))
     else:
         return dict()
-
-def chunkify(lst, n):
-    return [lst[i::n] for i in range(n)]
                         
 if __name__ == '__main__':
     loader = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World')
@@ -651,6 +648,8 @@ if __name__ == '__main__':
     print(world.get_item("Herdsmen Labor").value)
     print(world.get_item("Craftsmen Labor").value)
     print('----------------------------')
+
+    print(world.get_item("Farmers Food Consumption").value)
 
     world.do_run()
 

@@ -1,5 +1,12 @@
 [
 	{
+		"name" : "2",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
 		"name" : "1",
 		"type" : "Value",
 		"base" : 1,

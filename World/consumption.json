@@ -1,0 +1,69 @@
+[	
+	{
+		"name" : "Stockpile Consumption Factor",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Food Below Demand",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "CDF",
+		"curve" : "Farmers Food Distrib Curve",
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Stockpile Consumption Factor",
+			"Pops Food Demand"
+		]
+	},
+	{
+		"name" : "Farmers Food Below Demand Average",
+		"type" : "Instance",
+		"base" : 2,
+		"query" : "PMEAN",
+		"curve" : "Farmers Food Distrib Curve",
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Stockpile Consumption Factor",
+			"Pops Food Demand"
+		]
+	},
+	{
+		"name" : "Farmers Food Above Demand",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["SUBT"],
+		"paras" : ["Farmers Food Below Demand"]
+	},
+	{
+		"name" : "Farmers Food Consumption",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT",
+			"DIV",
+			"DIV",
+			"ADD",
+			"MULT",
+			"MULT"
+		],
+		"paras" : [
+			"Farmers Food Below Demand",
+			"Farmers Food Below Demand Average",
+			"Stockpile Consumption Factor",
+			"Pops Food Demand",
+			"Farmers Food Above Demand",
+			"Pops Food Demand",
+			"Farmers Total"
+		]
+	}
+]

@@ -60,5 +60,103 @@
 			"Craftsmen Preference",
 			"Nobles Preference"
 		]
+	},
+	
+	{
+		"name" : "Farmers Crop Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Farmers Industry Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Farmers Crop Preference"
+		]
+	},
+	
+	{
+		"name" : "Lumberjacks Forestry Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Lumberjacks Industry Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Lumberjacks Forestry Preference"
+		]
+	},
+	
+	{
+		"name" : "Herdsmen Herding Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Herdsmen Industry Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Herdsmen Herding Preference"
+		]
+	},
+	
+	{
+		"name" : "Craftsmen Toolsmaking Preference",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Craftsmen Industry Preference",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD"
+		],
+		"paras" : [
+			"Craftsmen Toolsmaking Preference"
+		]
+	},
+	
+	{
+		"name" : "Pops Food Demand",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Pops Timber Demand",
+		"type" : "Value",
+		"base" : 0.25,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Pops Fiber Demand",
+		"type" : "Value",
+		"base" : 0.25,
+		"functions" : [],
+		"paras" : []
 	}
 ]

@@ -16,7 +16,7 @@
 	},
 	
 	{
-		"name" : "Livestock Fiber Output",
+		"name" : "Herding Fiber Output",
 		"type" : "Value",
 		"base" : 2,
 		"functions" : [],
@@ -84,7 +84,7 @@
 	},
 	
 	{
-		"name" : "Herdsmen Livestock Weight",
+		"name" : "Herdsmen Herding Weight",
 		"type" : "Value",
 		"base" : 1,
 		"functions" : [],
@@ -98,7 +98,7 @@
 			"ADD"
 		],
 		"paras" : [
-			"Herdsmen Livestock Weight"
+			"Herdsmen Herding Weight"
 		]
 	},
 	
@@ -160,7 +160,7 @@
 	},
 	
 	{
-		"name" : "Nobles Herdsmen Livestock Weight",
+		"name" : "Nobles Herdsmen Herding Weight",
 		"type" : "Value",
 		"base" : 1,
 		"functions" : [],
@@ -174,7 +174,7 @@
 			"ADD"
 		],
 		"paras" : [
-			"Nobles Herdsmen Livestock Weight"
+			"Nobles Herdsmen Herding Weight"
 		]
 	},
 	
@@ -256,7 +256,7 @@
 	},
 	
 	{
-		"name" : "Herdsmen Livestock",
+		"name" : "Herdsmen Herding",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
@@ -265,13 +265,13 @@
 			"MULT"
 		],
 		"paras" : [
-			"Herdsmen Livestock Weight",
+			"Herdsmen Herding Weight",
 			"Herdsmen Industry Weight",
 			"Herdsmen Production"
 		]
 	},
 	{
-		"name" : "Herdsmen Livestock Fiber Output",
+		"name" : "Herdsmen Herding Fiber Output",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
@@ -279,8 +279,8 @@
 			"MULT"
 		],
 		"paras" : [
-			"Livestock Fiber Output",
-			"Herdsmen Livestock"
+			"Herding Fiber Output",
+			"Herdsmen Herding"
 		]
 	},
 	
@@ -398,7 +398,7 @@
 	},
 	
 	{
-		"name" : "Nobles Herdsmen Livestock",
+		"name" : "Nobles Herdsmen Herding",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
@@ -407,13 +407,13 @@
 			"MULT"
 		],
 		"paras" : [
-			"Nobles Herdsmen Livestock Weight",
+			"Nobles Herdsmen Herding Weight",
 			"Nobles Herdsmen Industry Weight",
 			"Nobles Herdsmen Production"
 		]
 	},
 	{
-		"name" : "Nobles Herdsmen Livestock Fiber Output",
+		"name" : "Nobles Herdsmen Herding Fiber Output",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
@@ -421,8 +421,8 @@
 			"MULT"
 		],
 		"paras" : [
-			"Livestock Fiber Output",
-			"Nobles Herdsmen Livestock"
+			"Herding Fiber Output",
+			"Nobles Herdsmen Herding"
 		]
 	},
 	

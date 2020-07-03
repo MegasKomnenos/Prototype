@@ -148,7 +148,7 @@
 	{
 		"name" : "Farmers Labor Sold",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 6,
 		"functions" : [],
 		"paras" : []
 	},
@@ -194,7 +194,7 @@
 	{
 		"name" : "Lumberjacks Labor Sold",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 4,
 		"functions" : [],
 		"paras" : []
 	},
@@ -240,7 +240,7 @@
 	{
 		"name" : "Herdsmen Labor Sold",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 4,
 		"functions" : [],
 		"paras" : []
 	},
@@ -286,7 +286,7 @@
 	{
 		"name" : "Craftsmen Labor Sold",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 2,
 		"functions" : [],
 		"paras" : []
 	},
@@ -294,28 +294,28 @@
 	{
 		"name" : "Nobles Farmers Labor",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 6,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Nobles Lumberjacks Labor",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 4,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Nobles Herdsmen Labor",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 4,
 		"functions" : [],
 		"paras" : []
 	},
 	{
 		"name" : "Nobles Craftsmen Labor",
 		"type" : "Value",
-		"base" : 0,
+		"base" : 1,
 		"functions" : [],
 		"paras" : []
 	}
