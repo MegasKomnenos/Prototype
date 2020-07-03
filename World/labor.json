@@ -135,12 +135,14 @@
 		"functions" : [
 			"ADD",
 			"ADD",
-			"ADD"
+			"ADD",
+			"SUBT"
 		],
 		"paras" : [
 			"Farmers Low Skill Labor",
 			"Farmers Med Skill Labor",
-			"Farmers High Skill Labor"
+			"Farmers High Skill Labor",
+			"Farmers Labor Sold"
 		]
 	},
 	{
@@ -179,12 +181,14 @@
 		"functions" : [
 			"ADD",
 			"ADD",
-			"ADD"
+			"ADD",
+			"SUBT"
 		],
 		"paras" : [
 			"Lumberjacks Low Skill Labor",
 			"Lumberjacks Med Skill Labor",
-			"Lumberjacks High Skill Labor"
+			"Lumberjacks High Skill Labor",
+			"Lumberjacks Labor Sold"
 		]
 	},
 	{
@@ -223,12 +227,14 @@
 		"functions" : [
 			"ADD",
 			"ADD",
-			"ADD"
+			"ADD",
+			"SUBT"
 		],
 		"paras" : [
 			"Herdsmen Low Skill Labor",
 			"Herdsmen Med Skill Labor",
-			"Herdsmen High Skill Labor"
+			"Herdsmen High Skill Labor",
+			"Herdsmen Labor Sold"
 		]
 	},
 	{
@@ -267,12 +273,14 @@
 		"functions" : [
 			"ADD",
 			"ADD",
-			"ADD"
+			"ADD",
+			"SUBT"
 		],
 		"paras" : [
 			"Craftsmen Low Skill Labor",
 			"Craftsmen Med Skill Labor",
-			"Craftsmen High Skill Labor"
+			"Craftsmen High Skill Labor",
+			"Craftsmen Labor Sold"
 		]
 	},
 	{
@@ -284,28 +292,28 @@
 	},
 	
 	{
-		"name" : "Farmers Labor Bought by Nobles",
+		"name" : "Nobles Farmers Labor",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Lumberjacks Labor Bought by Nobles",
+		"name" : "Nobles Lumberjacks Labor",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Herdsmen Labor Bought by Nobles",
+		"name" : "Nobles Herdsmen Labor",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [],
 		"paras" : []
 	},
 	{
-		"name" : "Craftsmen Labor Bought by Nobles",
+		"name" : "Nobles Craftsmen Labor",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [],
