@@ -27,7 +27,8 @@ LOG = lambda x, para : math.log(x, para)
 class Query(Enum):
     PDF = 1
     CDF = 2
-    MEAN = 3
+    PPF = 3
+    MEAN = 4
 
 class Curve:
     def __init__(self, distrib, paras):
@@ -54,6 +55,8 @@ class Curve:
             return run_helper(self.do_update().distrib.pdf, self.paras, x)
         elif query == Query.CDF:
             return run_helper(self.do_update().distrib.cdf, self.paras, x)
+        elif query == Query.PPF:
+            return run_helper(self.do_update().distrib.ppf, self.paras, x)
         elif query == Query.MEAN:
             return run_helper(self.do_update().distrib.mean, self.paras)
 
@@ -109,7 +112,7 @@ class CurveSum:
         return self
 
     def do_query(self, query, x=None):
-        if query == Query.PDF or query == Query.CDF:
+        if query == Query.PDF or query == Query.CDF or query == Query.PPF:
             result = 0
 
             for i, curve in enumerate(self.curves):
@@ -402,6 +405,8 @@ class WorldLoader:
                         query = Query.PDF
                     elif query == 'CDF':
                         query = Query.CDF
+                    elif query == 'PPF':
+                        query = Query.PPF
                     elif query == 'MEAN':
                         query = Query.MEAN
 
