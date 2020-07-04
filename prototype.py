@@ -508,6 +508,7 @@ def parse_list(item):
         return dict(ChainMap(*item))
     else:
         return dict()
+    
 def apply_conditional(k0, k1, template, dct):
     i = 0
         
@@ -540,3 +541,15 @@ if __name__ == '__main__':
     print(world.get_item("Peasants Food Below Demand Average").value)
     print(world.get_item("Peasants Food Above Demand").value)
     print(world.get_item("Peasants Food Consumption").value)
+
+    foo = world.get_item("Pops Total")
+
+    a = time.monotonic()
+
+    for _ in range(1000):
+        foo.change_base(ADD, 1)
+
+        world.do_update()
+
+    print(time.monotonic() - a)
+    
