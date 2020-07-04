@@ -1,0 +1,211 @@
+[
+	#$is_good$!@consume@{
+		"name" : "%pop% %good% Below Demand",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "CDF",
+		"curve" : "%pop% %good% Distrib Curve",
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Consumption Factor",
+			"Pops %good% Demand"
+		]
+	},
+	{
+		"name" : "%pop% %good% Below Demand Average",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "PMEAN",
+		"curve" : "%pop% %good% Distrib Curve",
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"Consumption Factor",
+			"Pops %good% Demand"
+		]
+	},
+	{
+		"name" : "%pop% %good% Above Demand",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : ["SUBT"],
+		"paras" : ["%pop% %good% Below Demand"]
+	},
+	{
+		"name" : "%pop% %good% Consumption",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT",
+			"DIV",
+			"DIV",
+			"ADD",
+			"MULT",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %good% Below Demand",
+			"%pop% %good% Below Demand Average",
+			"Consumption Factor",
+			"Pops %good% Demand",
+			"%pop% %good% Above Demand",
+			"Pops %good% Demand",
+			"%pop% Total"
+		]
+	},
+	{
+		"name" : "%pop% %good% Balance",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"SUBT",
+			"SUBT"
+		],
+		"paras" : [
+			"%pop% %good% Output",
+			"%pop% %good% Input",
+			"%pop% %good% Consumption"
+		]
+	},
+	{
+		"name" : "%pop% %good% Goal",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT",
+			"MULT"
+		],
+		"paras" : [
+			"Consumption Factor",
+			"Pops %good% Demand",
+			"%pop% Total"
+		]
+	},!
+	
+	!@is_tools@{
+		"name" : "%pop% %good% Consumption",
+		"type" : "Value",
+		"base" : 0.1,
+		"functions" : [
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %good%"
+		]
+	},
+	{
+		"name" : "%pop% %good% Balance",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"SUBT",
+			"SUBT"
+		],
+		"paras" : [
+			"%pop% %good% Output",
+			"%pop% %good% Input",
+			"%pop% %good% Consumption"
+		]
+	},
+	{
+		"name" : "%pop% %good% Goal",
+		"type" : "Value",
+		"base" : 20,
+		"functions" : [
+		],
+		"paras" : [
+		]
+	},!
+	
+	{
+		"name" : "%pop% %good% Offer",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"SUBT",
+			"DIV",
+			"MAX"
+		],
+		"paras" : [
+			"%pop% %good%",
+			"%pop% %good% Balance",
+			"%pop% %good% Goal",
+			"Stockpile Factor",
+			"0"
+		]
+	},
+	{
+		"name" : "%pop% %good% Bid",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"SUBT",
+			"DIV",
+			"MAX"
+		],
+		"paras" : [
+			"%pop% %good% Goal",
+			"%pop% %good%",
+			"%pop% %good% Balance",
+			"Stockpile Factor",
+			"0"
+		]
+	},#
+	
+	{
+		"name" : "%pop% %good%",
+		"type" : "Value",
+		"base" : %amount%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %good% Average",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"%pop% %good%",
+			"%pop% Total"
+		]
+	},
+	{
+		"name" : "%pop% %good% Distrib Scale",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"%pop% %good% Average",
+			"%pop% Wealth Distrib Shape"
+		]
+	},
+	{
+		"name" : "%pop% %good% Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "gamma",
+		"paras" : [
+			"0",
+			"%pop% %good% Distrib Scale",
+			"%pop% Wealth Distrib Shape"
+		]
+	}
+]

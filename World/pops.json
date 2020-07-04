@@ -6,403 +6,58 @@
 		"functions" : [],
 		"paras" : []
 	},
-	
-	{
-		"name" : "Farmers Weight",
-		"type" : "Value",
-		"base" : 2.4,
-		"functions" : [],
-		"paras" : []
-	},
-	{
-		"name" : "Lumberjacks Weight",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [],
-		"paras" : []
-	},
-	{
-		"name" : "Herdsmen Weight",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [],
-		"paras" : []
-	},
-	{
-		"name" : "Craftsmen Weight",
-		"type" : "Value",
-		"base" : 0.5,
-		"functions" : [],
-		"paras" : []
-	},
-	{
-		"name" : "Nobles Weight",
-		"type" : "Value",
-		"base" : 0.1,
-		"functions" : [],
-		"paras" : []
-	},
 	{
 		"name" : "Total Weight",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
 			"ADD",
-			"ADD",
-			"ADD",
-			"ADD",
 			"ADD"
 		],
 		"paras" : [
-			"Farmers Weight",
-			"Lumberjacks Weight",
-			"Herdsmen Weight",
-			"Craftsmen Weight",
-			"Nobles Weight"
+			"Peasants Weight",
+			"Craftsmen Weight"
 		]
 	},
 	
 	{
-		"name" : "Farmers Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Farmers Weight",
-			"Total Weight",
-			"Pops Total"
-		]
+		"name" : "Pop",
+		"type" : "Template",
+		"pop" : "Peasants",
+		"pref" : 1,
+		"skill_weight_low" : 0.4,
+		"skill_weight_med" : 0.7,
+		"skill_weight_high" : 0.9,
+		"skill_shape" : -1,
+		"stockpile_shape" : 2,
+		"Wealth" : 100,
+		"Food" : 200,
+		"Timber" : 40,
+		"Fiber" : 40,
+		"Tools" : 20,
+		"Farm Wheat" : 2,
+		"Cut Trees" : 0.5,
+		"Herd Livestock" : 0.5,
+		"Farmland" : 40,
+		"Forest" : 20,
+		"Pasture" : 20
 	},
 	{
-		"name" : "Lumberjacks Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Lumberjacks Weight",
-			"Total Weight",
-			"Pops Total"
-		]
-	},
-	{
-		"name" : "Herdsmen Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Herdsmen Weight",
-			"Total Weight",
-			"Pops Total"
-		]
-	},
-	{
-		"name" : "Craftsmen Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Craftsmen Weight",
-			"Total Weight",
-			"Pops Total"
-		]
-	},
-	{
-		"name" : "Nobles Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"DIV",
-			"MULT"
-		],
-		"paras" : [
-			"Nobles Weight",
-			"Total Weight",
-			"Pops Total"
-		]
-	},
-	
-	{
-		"name" : "Farmers Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"MULT"
-		],
-		"paras" : [
-			"Farmers Low Skill",
-			"Farmers Total"
-		]
-	},
-	{
-		"name" : "Farmers Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Farmers Med Skill or Lower",
-			"Farmers Low Skill",
-			"Farmers Total"
-		]
-	},
-	{
-		"name" : "Farmers High Skill Total",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Farmers Med Skill or Lower",
-			"Farmers Total"
-		]
-	},
-	
-	{
-		"name" : "Lumberjacks Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"MULT"
-		],
-		"paras" : [
-			"Lumberjacks Low Skill",
-			"Lumberjacks Total"
-		]
-	},
-	{
-		"name" : "Lumberjacks Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Lumberjacks Med Skill or Lower",
-			"Lumberjacks Low Skill",
-			"Lumberjacks Total"
-		]
-	},
-	{
-		"name" : "Lumberjacks High Skill Total",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Lumberjacks Med Skill or Lower",
-			"Lumberjacks Total"
-		]
-	},
-	
-	{
-		"name" : "Herdsmen Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"MULT"
-		],
-		"paras" : [
-			"Herdsmen Low Skill",
-			"Herdsmen Total"
-		]
-	},
-	{
-		"name" : "Herdsmen Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Herdsmen Med Skill or Lower",
-			"Herdsmen Low Skill",
-			"Herdsmen Total"
-		]
-	},
-	{
-		"name" : "Herdsmen High Skill Total",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Herdsmen Med Skill or Lower",
-			"Herdsmen Total"
-		]
-	},
-	
-	{
-		"name" : "Craftsmen Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"MULT"
-		],
-		"paras" : [
-			"Craftsmen Low Skill",
-			"Craftsmen Total"
-		]
-	},
-	{
-		"name" : "Craftsmen Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Craftsmen Med Skill or Lower",
-			"Craftsmen Low Skill",
-			"Craftsmen Total"
-		]
-	},
-	{
-		"name" : "Craftsmen High Skill Total",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Craftsmen Med Skill or Lower",
-			"Craftsmen Total"
-		]
-	},
-	
-	{
-		"name" : "Nobles Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"MULT"
-		],
-		"paras" : [
-			"Nobles Low Skill",
-			"Nobles Total"
-		]
-	},
-	{
-		"name" : "Nobles Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"SET",
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Nobles Med Skill or Lower",
-			"Nobles Low Skill",
-			"Nobles Total"
-		]
-	},
-	{
-		"name" : "Nobles High Skill Total",
-		"type" : "Value",
-		"base" : 1,
-		"functions" : [
-			"SUBT",
-			"MULT"
-		],
-		"paras" : [
-			"Nobles Med Skill or Lower",
-			"Nobles Total"
-		]
-	},
-	
-	{
-		"name" : "Pops Low Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD"
-		],
-		"paras" : [
-			"Farmers Low Skill Total",
-			"Lumberjacks Low Skill Total",
-			"Herdsmen Low Skill Total",
-			"Craftsmen Low Skill Total",
-			"Nobles Low Skill Total"
-		]
-	},
-	{
-		"name" : "Pops Med Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD"
-		],
-		"paras" : [
-			"Farmers Med Skill Total",
-			"Lumberjacks Med Skill Total",
-			"Herdsmen Med Skill Total",
-			"Craftsmen Med Skill Total",
-			"Nobles Med Skill Total"
-		]
-	},
-	{
-		"name" : "Pops High Skill Total",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD",
-			"ADD"
-		],
-		"paras" : [
-			"Farmers High Skill Total",
-			"Lumberjacks High Skill Total",
-			"Herdsmen High Skill Total",
-			"Craftsmen High Skill Total",
-			"Nobles High Skill Total"
-		]
+		"name" : "Pop",
+		"type" : "Template",
+		"pop" : "Craftsmen",
+		"pref" : 0.1,
+		"skill_weight_low" : 0.3,
+		"skill_weight_med" : 0.7,
+		"skill_weight_high" : 1.2,
+		"skill_shape" : 2,
+		"stockpile_shape" : 2,
+		"Wealth" : 40,
+		"Food" : 20,
+		"Timber" : 40,
+		"Fiber" : 40,
+		"Tools" : 40,
+		"Make Tools" : 1,
+		"Workshop" : 10
 	}
 ]

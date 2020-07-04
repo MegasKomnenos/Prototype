@@ -1,0 +1,200 @@
+[
+	{
+		"name" : "%pop% %act% Preference",
+		"type" : "Value",
+		"base" : %pref%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %act% Labor Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Preference",
+			"%pop% %act% Labor Factor"
+		]
+	},
+	{
+		"name" : "%pop% %act% Prp Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Preference",
+			"%pop% %act% Prp Factor"
+		]
+	},
+	{
+		"name" : "%pop% %act% Tools Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Preference",
+			"%pop% %act% Tools Factor"
+		]
+	},
+	
+	{
+		"name" : "%pop% %act% Labor",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Labor Weight",
+			"%pop% Labor Weight",
+			"%pop% Labor"
+		]
+	},
+	{
+		"name" : "%pop% %act% Prp",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Prp Weight",
+			"%pop% %housed% Prp Weight",
+			"%pop% %housed%"
+		]
+	},
+	{
+		"name" : "%pop% %act% Tools",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %act% Tools Weight",
+			"%pop% Tools Weight",
+			"%pop% Tools"
+		]
+	},
+	
+	{
+		"name" : "%pop% %act% Labor Factor",
+		"type" : "Value",
+		"base" : %labor%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %act% Prp Factor",
+		"type" : "Value",
+		"base" : %prp%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %act% Tools Factor",
+		"type" : "Value",
+		"base" : %tools%,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	!@Food output@{
+		"name" : "%pop% %act% Food Output",
+		"type" : "Value",
+		"base" : %Food output%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Timber output@{
+		"name" : "%pop% %act% Timber Output",
+		"type" : "Value",
+		"base" : %Timber output%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Fiber output@{
+		"name" : "%pop% %act% Fiber Output",
+		"type" : "Value",
+		"base" : %Fiber output%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Tools output@{
+		"name" : "%pop% %act% Tools Output",
+		"type" : "Value",
+		"base" : %Tools output%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	
+	!@Food input@{
+		"name" : "%pop% %act% Food Input",
+		"type" : "Value",
+		"base" : %Food input%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Timber input@{
+		"name" : "%pop% %act% Timber Input",
+		"type" : "Value",
+		"base" : %Timber input%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Fiber input@{
+		"name" : "%pop% %act% Fiber Input",
+		"type" : "Value",
+		"base" : %Fiber input%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	!@Tools input@{
+		"name" : "%pop% %act% Tools Input",
+		"type" : "Value",
+		"base" : %Tools input%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% %act% Production"]
+	},!
+	
+	{
+		"name" : "%pop% %act% Production",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"POW",
+			"ROOT",
+			"MULT",
+			"POW",
+			"ROOT",
+			"MULT",
+			"POW"
+		],
+		"paras" : [
+			"%pop% %act% Labor",
+			"%pop% %act% Labor Factor",
+			"%pop% %act% Prp Factor",
+			"%pop% %act% Prp",
+			"%pop% %act% Prp Factor",
+			"%pop% %act% Tools Factor",
+			"%pop% %act% Tools",
+			"%pop% %act% Tools Factor"
+		]
+	}
+]

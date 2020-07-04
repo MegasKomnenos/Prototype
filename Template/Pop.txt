@@ -1,0 +1,478 @@
+[
+	{
+		"name" : "%pop% Weight",
+		"type" : "Value",
+		"base" : %pref%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Pref",
+		"type" : "Value",
+		"base" : %pref%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Weight",
+			"Total Weight",
+			"Pops Total"
+		]
+	},
+	{
+		"name" : "%pop% Skill Weight",
+		"type" : "Value",
+		"base" : %skill_shape%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Skill Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"%pop% Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "%pop% Skill Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Skill Shape Base",
+			"%pop% Skill Weight",
+			"Skill Shape Base"
+		]
+	},
+	{
+		"name" : "%pop% Skill Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"1",
+			"%pop% Skill Shape A",
+			"%pop% Skill Shape B"
+		]
+	},
+	{
+		"name" : "%pop% Low Skill",
+		"type" : "Instance",
+		"base" : 0.25,
+		"query" : "CDF",
+		"curve" : "%pop% Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "%pop% Med Skill or Lower",
+		"type" : "Instance",
+		"base" : 0.75,
+		"query" : "CDF",
+		"curve" : "%pop% Skill Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
+		"name" : "%pop% Low Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Low Skill",
+			"%pop% Total"
+		]
+	},
+	{
+		"name" : "%pop% Med Skill Total",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Med Skill or Lower",
+			"%pop% Low Skill",
+			"%pop% Total"
+		]
+	},
+	{
+		"name" : "%pop% High Skill Total",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"SUBT",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Med Skill or Lower",
+			"%pop% Total"
+		]
+	},
+	
+	{
+		"name" : "%pop% Low Skill Labor",
+		"type" : "Value",
+		"base" : %skill_weight_low%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% Low Skill Total"]
+	},
+	{
+		"name" : "%pop% Med Skill Labor",
+		"type" : "Value",
+		"base" : %skill_weight_med%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% Med Skill Total"]
+	},
+	{
+		"name" : "%pop% High Skill Labor",
+		"type" : "Value",
+		"base" : %skill_weight_high%,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% High Skill Total"]
+	},
+	
+	{
+		"name" : "%pop% Labor",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"ADD",
+			"ADD"
+		],
+		"paras" : [
+			"%pop% Low Skill Labor",
+			"%pop% Med Skill Labor",
+			"%pop% High Skill Labor"
+		]
+	},
+	
+	{
+		"name" : "%pop% Wealth Distrib Shape",
+		"type" : "Value",
+		"base" : %stockpile_shape%,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	!@Farm Wheat@{
+		"name" : "Activity",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"act" : "Farm Wheat",
+		"pref" : "%Farm Wheat%",
+		"Food output" : 2,
+		"housed" : "Farmland",
+		"labor" : 0.4,
+		"prp" : 0.4,
+		"tools" : 0.2
+	},!
+	!@Cut Trees@{
+		"name" : "Activity",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"act" : "Cut Trees",
+		"pref" : "%Cut Trees%",
+		"Timber output" : 2,
+		"housed" : "Forest",
+		"labor" : 0.3,
+		"prp" : 0.5,
+		"tools" : 0.2
+	},!
+	!@Herd Livestock@{
+		"name" : "Activity",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"act" : "Herd Livestock",
+		"pref" : "%Herd Livestock%",
+		"Fiber output" : 2,
+		"housed" : "Pasture",
+		"labor" : 0.2,
+		"prp" : 0.6,
+		"tools" : 0.2
+	},!
+	!@Make Tools@{
+		"name" : "Activity",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"act" : "Make Tools",
+		"pref" : "%Make Tools%",
+		"Tools output" : 2,
+		"Timber input" : 1,
+		"Fiber input" : 1,
+		"housed" : "Workshop",
+		"labor" : 0.5,
+		"prp" : 0.4,
+		"tools" : 0.1
+	},!
+	
+	!@Farmland@{
+		"name" : "%pop% Farmland",
+		"type" : "Value",
+		"base" : %Farmland%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Farmland Prp Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			#$Farm Wheat$"ADD"#
+		],
+		"paras" : [
+			#$Farm Wheat$"%pop% Farm Wheat Prp Weight"#
+		]
+	},!
+	!@Forest@{
+		"name" : "%pop% Forest",
+		"type" : "Value",
+		"base" : %Forest%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Forest Prp Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			#$Cut Trees$"ADD"#
+		],
+		"paras" : [
+			#$Cut Trees$"%pop% Cut Trees Prp Weight"#
+		]
+	},!
+	!@Pasture@{
+		"name" : "%pop% Pasture",
+		"type" : "Value",
+		"base" : %Pasture%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Pasture Prp Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			#$Herd Livestock$"ADD"#
+		],
+		"paras" : [
+			#$Herd Livestock$"%pop% Herd Livestock Prp Weight"#
+		]
+	},!
+	!@Workshop@{
+		"name" : "%pop% Workshop",
+		"type" : "Value",
+		"base" : %Workshop%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Workshop Prp Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			#$Make Tools$"ADD"#
+		],
+		"paras" : [
+			#$Make Tools$"%pop% Make Tools Prp Weight"#
+		]
+	},!
+	
+	{
+		"name" : "%pop% Labor Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Farm Wheat@"ADD",!
+			!@Cut Trees@"ADD",!
+			!@Herd Livestock@"ADD",!
+			!@Make Tools@"ADD",!
+			"ADD"
+		],
+		"paras" : [
+			!@Farm Wheat@"%pop% Farm Wheat Labor Weight",!
+			!@Cut Trees@"%pop% Cut Trees Labor Weight",!
+			!@Herd Livestock@"%pop% Herd Livestock Labor Weight",!
+			!@Make Tools@"%pop% Make Tools Labor Weight",!
+			"0"
+		]
+	},
+	{
+		"name" : "%pop% Tools Weight",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Farm Wheat@"ADD",!
+			!@Cut Trees@"ADD",!
+			!@Herd Livestock@"ADD",!
+			!@Make Tools@"ADD",!
+			"ADD"
+		],
+		"paras" : [
+			!@Farm Wheat@"%pop% Farm Wheat Tools Weight",!
+			!@Cut Trees@"%pop% Cut Trees Tools Weight",!
+			!@Herd Livestock@"%pop% Herd Livestock Tools Weight",!
+			!@Make Tools@"%pop% Make Tools Tools Weight",!
+			"0"
+		]
+	},
+	
+	{
+		"name" : "%pop% Food Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Farm Wheat@"ADD"!
+		],
+		"paras" : [
+			!@Farm Wheat@"%pop% Farm Wheat Food Output"!
+		]
+	},
+	{
+		"name" : "%pop% Timber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Cut Trees@"ADD"!
+		],
+		"paras" : [
+			!@Cut Trees@"%pop% Cut Trees Timber Output"!
+		]
+	},
+	{
+		"name" : "%pop% Fiber Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Herd Livestock@"ADD"!
+		],
+		"paras" : [
+			!@Herd Livestock@"%pop% Herd Livestock Fiber Output"!
+		]
+	},
+	{
+		"name" : "%pop% Tools Output",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Make Tools@"ADD"!
+		],
+		"paras" : [
+			!@Make Tools@"%pop% Make Tools Tools Output"!
+		]
+	},
+	
+	{
+		"name" : "%pop% Food Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+		],
+		"paras" : [
+		]
+	},
+	{
+		"name" : "%pop% Timber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Make Tools@"ADD"!
+		],
+		"paras" : [
+			!@Make Tools@"%pop% Make Tools Timber Input"!
+		]
+	},
+	{
+		"name" : "%pop% Fiber Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			!@Make Tools@"ADD"!
+		],
+		"paras" : [
+			!@Make Tools@"%pop% Make Tools Fiber Input"!
+		]
+	},
+	{
+		"name" : "%pop% Tools Input",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+		],
+		"paras" : [
+		]
+	},
+	
+	{
+		"name" : "Stockpile",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"good" : "Wealth",
+		"amount" : %Wealth%
+	},
+	{
+		"name" : "Stockpile",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"good" : "Food",
+		"amount" : %Food%,
+		"is_good" : "True",
+		"consume" : "True"
+	},
+	{
+		"name" : "Stockpile",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"good" : "Timber",
+		"amount" : %Timber%,
+		"is_good" : "True",
+		"consume" : "True"
+	},
+	{
+		"name" : "Stockpile",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"good" : "Fiber",
+		"amount" : %Fiber%,
+		"is_good" : "True",
+		"consume" : "True"
+	},
+	{
+		"name" : "Stockpile",
+		"type" : "Template",
+		"pop" : "%pop%",
+		"good" : "Tools",
+		"amount" : %Tools%,
+		"is_good" : "True",
+		"is_tools" : "True"
+	}
+]

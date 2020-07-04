@@ -158,5 +158,28 @@
 		"base" : 0.25,
 		"functions" : [],
 		"paras" : []
+	},
+	
+	{
+		"name" : "Consumption Factor",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Stockpile Factor",
+		"type" : "Value",
+		"base" : 2,
+		"functions" : [],
+		"paras" : []
+	},
+	
+	{
+		"name" : "Skill Shape Base",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : [],
+		"paras" : []
 	}
 ]

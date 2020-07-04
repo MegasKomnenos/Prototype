@@ -282,83 +282,87 @@ class World:
                     system.do_run()
             else:
                 break
-        
 
 class WorldLoader:
     def __init__(self, root):
-        files = []
-
-        for path in glob.glob(f'{root}\\*.json'):
-            files.append(json.load(open(path)))
-
         self.objs = dict()
+        
+        files = []
+        templates = {}
+        
+        for path in glob.glob(f'{root}\\World\\*.json'):
+            files.append(json.load(open(path)))
+        for path in glob.glob(f'{root}\\Template\\*.txt'):
+            templates[path.split('\\')[-1].split('.')[0].strip()] = open(path).read()
 
         for file in files:
             for dct in file:
                 name = dct.get('name')
+                tp = dct.get('type')
 
-                if name:
-                    obj = dict()
+                if name and tp:
+                    if tp == 'Template':
+                        self.convert_template(templates, templates[name], dct)
+                    else:
+                        obj = dict(dct)
+
+                        obj['parents'] = list()
+                        obj['children'] = list()
+
+                        self.objs[name] = obj
+                else:
+                    file.remove(dct)
+
+        for name, obj in self.objs.items():
+            parents = obj['parents']
+            children = obj['children']
+            tp = obj['type']
+
+            if tp == 'CurveSum':
+                for curve in obj['curves']:
+                    add_helper(parents, curve)
+                    add_helper(self.objs[curve]['children'], name)
+                for paras in obj['paras']:
+                    for para in paras:
+                        add_helper(parents, para)
+                        add_helper(self.objs[para]['children'], name)
+                for paras in obj['paras_mean']:
+                    for para in paras:
+                        add_helper(parents, para)
+                        add_helper(self.objs[para]['children'], name)
+            else:
+                for para in obj['paras']:
+                    add_helper(parents, para)
+                    add_helper(self.objs[para]['children'], name)
+
+                if tp == 'Instance':
+                    add_helper(parents, obj['curve'])
+                    add_helper(self.objs[obj['curve']]['children'], name)
+
+    def convert_template(self, templates, template, dct):
+        for arg, val in dct.items():
+            if f'%{arg}%' in template:
+                template = template.replace(f'%{arg}%', str(val))
+
+        template = apply_conditional('!', '@', template, dct)
+        template = apply_conditional('#', '$', template, dct)
+
+        parsed = json.loads(template)
+
+        for dct in parsed:
+            name = dct.get('name')
+            tp = dct.get('type')
+
+            if name and tp:
+                if tp == 'Template':
+                    self.convert_template(templates, templates[name], dct)
+                else:
+                    obj = dict(dct)
 
                     obj['parents'] = list()
                     obj['children'] = list()
 
                     self.objs[name] = obj
-                else:
-                    file.remove(dct)
-
-        for file in files:
-            for dct in file:
-                name = dct['name']
-                obj = self.objs[name]
-                parents = obj['parents']
-                children = obj['children']
-                typ = dct.get('type')
-
-                obj['type'] = typ
-
-                if typ == 'CurveSum':
-                    obj['curves'] = dct['curves']
-                    obj['functions'] = dct['functions']
-                    obj['paras'] = dct['paras']
-                    obj['functions_mean'] = dct['functions_mean']
-                    obj['paras_mean'] = dct['paras_mean']
-
-                    for curve in obj['curves']:
-                        add_helper(parents, curve)
-                        add_helper(self.objs[curve]['children'], name)
-                    for paras in obj['paras']:
-                        for para in paras:
-                            add_helper(parents, para)
-                            add_helper(self.objs[para]['children'], name)
-                    for paras in obj['paras_mean']:
-                        for para in paras:
-                            add_helper(parents, para)
-                            add_helper(self.objs[para]['children'], name)
-                else:
-                    paras = dct['paras']
-
-                    for para in paras:
-                        add_helper(parents, para)
-                        add_helper(self.objs[para]['children'], name)
-
-                    obj['paras'] = paras
-                    
-                    if typ == 'Curve':
-                        obj['distrib'] = dct['distrib']
-                    elif typ == 'Value':
-                        obj['functions'] = dct['functions']
-                        obj['base'] = dct['base']
-                    elif typ == 'Instance':
-                        curve = dct['curve']
-
-                        obj['curve'] = curve
-                        obj['query'] = dct['query']
-                        obj['functions'] = dct['functions']
-                        obj['base'] = dct['base']
-
-                        add_helper(parents, curve)
-                        add_helper(self.objs[curve]['children'], name)
 
     def gen(self):
         world = World()
@@ -504,40 +508,35 @@ def parse_list(item):
         return dict(ChainMap(*item))
     else:
         return dict()
+def apply_conditional(k0, k1, template, dct):
+    i = 0
+        
+    while True:
+        i = template.find(k0, i)
+
+        if i + 1:
+            ii = template.find(k0, i + 1)
+
+            block = template[i:ii + 1]
+            
+            check = block[block.find(k1) + 1:]
+            check = check[:check.find(k1)]
+
+            if check in dct:
+                block = block.replace(f'{k1}{check}{k1}', '').strip(k0 + k1)
+            else:
+                block = ''
+
+            template = template[:i] + block + template[ii + 1:]
+        else:
+            break
+
+    return template
                         
 if __name__ == '__main__':
-    world = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype\\World').gen()
+    world = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype').gen()
 
-    fig, ax = plt.subplots(1, 1)
-
-    food = world.get_item("Farmers Food Distrib Curve")
-    total = world.get_item("Farmers Total")
-
-    size = int(200*food.do_query(Query.MEAN))
-
-    x = linspace(0.01, 2*food.do_query(Query.MEAN), size)
-    y = [total.value * food.do_query(Query.PDF, xx) for xx in x]
-
-    ax.plot(x, y, 'r-', alpha=0.6)
-
-    print(world.get_item("Farmers Food Below Demand").value)
-    print(world.get_item("Farmers Food Below Demand Average").value)
-    print(world.get_item("Farmers Food Above Demand").value)
-    print(world.get_item("Farmers Food Consumption").value)
-
-    world.get_item("Pops Total").change_base(ADD, 100)
-    world.do_update()
-
-    food = world.get_item("Farmers Food Distrib Curve")
-    total = world.get_item("Farmers Total")
-
-    y = [total.value * food.do_query(Query.PDF, xx) for xx in x]
-
-    ax.plot(x, y, 'b-', alpha=0.6)
-
-    print(world.get_item("Farmers Food Below Demand").value)
-    print(world.get_item("Farmers Food Below Demand Average").value)
-    print(world.get_item("Farmers Food Above Demand").value)
-    print(world.get_item("Farmers Food Consumption").value)
-
-    plt.show()
+    print(world.get_item("Peasants Food Below Demand").value)
+    print(world.get_item("Peasants Food Below Demand Average").value)
+    print(world.get_item("Peasants Food Above Demand").value)
+    print(world.get_item("Peasants Food Consumption").value)
