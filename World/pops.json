@@ -34,7 +34,7 @@
 		"Food" : 200,
 		"Timber" : 40,
 		"Fiber" : 40,
-		"Tools" : 20,
+		"Tools" : 40,
 		"Farm Wheat" : 2,
 		"Cut Trees" : 0.5,
 		"Herd Livestock" : 0.5,
@@ -54,9 +54,9 @@
 		"stockpile_shape" : 2,
 		"Wealth" : 40,
 		"Food" : 20,
-		"Timber" : 40,
-		"Fiber" : 40,
-		"Tools" : 40,
+		"Timber" : 20,
+		"Fiber" : 20,
+		"Tools" : 20,
 		"Make Tools" : 1,
 		"Workshop" : 10
 	}
