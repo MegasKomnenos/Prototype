@@ -30,13 +30,6 @@
 	},
 	
 	{
-		"name" : "Consumption Factor",
-		"type" : "Value",
-		"base" : 2,
-		"functions" : [],
-		"paras" : []
-	},
-	{
 		"name" : "Stockpile Factor",
 		"type" : "Value",
 		"base" : 2,

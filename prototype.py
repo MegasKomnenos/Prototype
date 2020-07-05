@@ -545,6 +545,16 @@ if __name__ == '__main__':
     print("Craftsmen Tools Output", world.get_item("Craftsmen Tools Output").value)
     print("Craftsmen Tools Offer", world.get_item("Craftsmen Tools Offer").value)
 
+    print("Peasants Timber Consumption", world.get_item("Peasants Timber Consumption").value)
+    print("Peasants Timber Output", world.get_item("Peasants Timber Output").value)
+    print("Peasants Timber Offer", world.get_item("Peasants Timber Offer").value)
+    print("Craftsmen Timber Consumption",world.get_item("Craftsmen Timber Consumption").value)
+    print("Craftsmen Timber Input", world.get_item("Craftsmen Timber Input").value)
+    print("Craftsmen Timber Bid", world.get_item("Craftsmen Timber Bid").value)
+    print("Craftsmen Timber Goal", world.get_item("Craftsmen Timber Goal").value)
+    print("Craftsmen Timber", world.get_item("Craftsmen Timber").value)
+    print("Craftsmen Timber Balance", world.get_item("Craftsmen Timber Balance").value)
+
     """
     foo = world.get_item("Pops Total")
 

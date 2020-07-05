@@ -437,6 +437,34 @@
 	},
 	
 	{
+		"name" : "%pop% Tools Consumption",
+		"type" : "Value",
+		"base" : %tools_consumption%,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% Tools Goal",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Tools Consumption",
+			"Stockpile Factor"
+		]
+	},
+	{
+		"name" : "%pop% Tools Usage",
+		"type" : "Value",
+		"base" : 5,
+		"functions" : ["MULT"],
+		"paras" : ["%pop% Tools Consumption"]
+	},
+	
+	{
 		"name" : "Stockpile",
 		"type" : "Template",
 		"pop" : "%pop%",
@@ -476,7 +504,6 @@
 		"pop" : "%pop%",
 		"good" : "Tools",
 		"amount" : %Tools%,
-		"is_good" : "True",
-		"is_tools" : "True"
+		"is_good" : "True"
 	}
 ]

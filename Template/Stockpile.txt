@@ -10,7 +10,7 @@
 			"MULT"
 		],
 		"paras" : [
-			"Consumption Factor",
+			"Stockpile Factor",
 			"Pops %good% Demand"
 		]
 	},
@@ -25,7 +25,7 @@
 			"MULT"
 		],
 		"paras" : [
-			"Consumption Factor",
+			"Stockpile Factor",
 			"Pops %good% Demand"
 		]
 	},
@@ -52,26 +52,11 @@
 		"paras" : [
 			"%pop% %good% Below Demand",
 			"%pop% %good% Below Demand Average",
-			"Consumption Factor",
+			"Stockpile Factor",
 			"Pops %good% Demand",
 			"%pop% %good% Above Demand",
 			"Pops %good% Demand",
 			"%pop% Total"
-		]
-	},
-	{
-		"name" : "%pop% %good% Balance",
-		"type" : "Value",
-		"base" : 0,
-		"functions" : [
-			"ADD",
-			"SUBT",
-			"SUBT"
-		],
-		"paras" : [
-			"%pop% %good% Output",
-			"%pop% %good% Input",
-			"%pop% %good% Consumption"
 		]
 	},
 	{
@@ -81,50 +66,52 @@
 		"functions" : [
 			"SET",
 			"MULT",
+			"ADD",
 			"MULT"
 		],
 		"paras" : [
-			"Consumption Factor",
 			"Pops %good% Demand",
-			"%pop% Total"
+			"%pop% Total",
+			"%pop% %good% Input",
+			"Stockpile Factor"
 		]
 	},!
 	
-	!@is_tools@{
-		"name" : "%pop% %good% Consumption",
+	{
+		"name" : "%pop% %good% Input Spend",
 		"type" : "Value",
-		"base" : 0.1,
+		"base" : 0,
 		"functions" : [
-			"MULT"
+			"SET",
+			"DIV",
+			"SUBT",
+			"MAX",
+			"MIN"
 		],
 		"paras" : [
-			"%pop% %good%"
+			"%pop% %good%",
+			"Stockpile Factor",
+			"%pop% %good% Consumption",
+			"0",
+			"%pop% %good% Input"
 		]
 	},
+	
 	{
 		"name" : "%pop% %good% Balance",
 		"type" : "Value",
 		"base" : 0,
 		"functions" : [
-			"ADD",
+			"SET",
 			"SUBT",
 			"SUBT"
 		],
 		"paras" : [
 			"%pop% %good% Output",
-			"%pop% %good% Input",
+			"%pop% %good% Input Spend",
 			"%pop% %good% Consumption"
 		]
 	},
-	{
-		"name" : "%pop% %good% Goal",
-		"type" : "Value",
-		"base" : 20,
-		"functions" : [
-		],
-		"paras" : [
-		]
-	},!
 	
 	{
 		"name" : "%pop% %good% Offer",

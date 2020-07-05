@@ -88,7 +88,7 @@
 		"paras" : [
 			"%pop% %act% Tools Weight",
 			"%pop% Tools Weight",
-			"%pop% Tools"
+			"%pop% Tools Usage"
 		]
 	},
 	
