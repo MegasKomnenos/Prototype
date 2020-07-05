@@ -537,11 +537,15 @@ def apply_conditional(k0, k1, template, dct):
 if __name__ == '__main__':
     world = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype').gen()
 
-    print(world.get_item("Peasants Food Below Demand").value)
-    print(world.get_item("Peasants Food Below Demand Average").value)
-    print(world.get_item("Peasants Food Above Demand").value)
-    print(world.get_item("Peasants Food Consumption").value)
+    print("Peasants Total", world.get_item("Peasants Total").value)
+    print("Peasants Food Consumption", world.get_item("Peasants Food Consumption").value)
+    print("Peasants Food Output", world.get_item("Peasants Food Output").value)
+    print("Peasants Food Offer", world.get_item("Peasants Food Offer").value)
+    print("Peasants Tools Consumption",world.get_item("Peasants Tools Consumption").value)
+    print("Craftsmen Tools Output", world.get_item("Craftsmen Tools Output").value)
+    print("Craftsmen Tools Offer", world.get_item("Craftsmen Tools Offer").value)
 
+    """
     foo = world.get_item("Pops Total")
 
     a = time.monotonic()
@@ -552,4 +556,4 @@ if __name__ == '__main__':
         world.do_update()
 
     print(time.monotonic() - a)
-    
+    """

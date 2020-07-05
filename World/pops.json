@@ -1,5 +1,113 @@
 [
 	{
+		"name" : "Hours in Day",
+		"type" : "Value",
+		"base" : 24,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Maximum Workhour",
+		"type" : "Value",
+		"base" : 18,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Minimum Leisure",
+		"type" : "Value",
+		"base" : 1,
+		"functions" : [
+			"MULT",
+			"SUBT"
+		],
+		"paras" : [
+			"Hours in Day",
+			"Maximum Workhour"
+		]
+	},
+	
+	{
+		"name" : "Labor Shape Base",
+		"type" : "Value",
+		"base" : 3,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "Labor Shape A",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"ADD",
+			"MAX"
+		],
+		"paras" : [
+			"Labor Shape Base",
+			"Labor Drive",
+			"Labor Shape Base"
+		]
+	},
+	{
+		"name" : "Labor Shape B",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"SUBT",
+			"MAX"
+		],
+		"paras" : [
+			"Labor Shape Base",
+			"Labor Drive",
+			"Labor Shape Base"
+		]
+	},
+	
+	{
+		"name" : "Workhour Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"0",
+			"Maximum Workhour",
+			"Labor Shape A",
+			"Labor Shape B"
+		]
+	},
+	{
+		"name" : "Leisure Distrib Curve",
+		"type" : "Curve",
+		"distrib" : "beta",
+		"paras" : [
+			"Minimum Leisure",
+			"Maximum Workhour",
+			"Labor Shape B",
+			"Labor Shape A"
+		]
+	},
+	
+	{
+		"name" : "Average Workhour",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "MEAN",
+		"curve" : "Workhour Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	{
+		"name" : "Average Leisure",
+		"type" : "Instance",
+		"base" : 0,
+		"query" : "MEAN",
+		"curve" : "Leisure Distrib Curve",
+		"paras" : [],
+		"functions" : []
+	},
+	
+	{
 		"name" : "Pops Total",
 		"type" : "Value",
 		"base" : 100,
@@ -25,31 +133,31 @@
 		"type" : "Template",
 		"pop" : "Peasants",
 		"pref" : 1,
-		"skill_weight_low" : 0.4,
-		"skill_weight_med" : 0.7,
-		"skill_weight_high" : 0.9,
-		"skill_shape" : -1,
+		"skill_weight_low" : 0.5,
+		"skill_weight_med" : 0.9,
+		"skill_weight_high" : 1.2,
+		"skill_shape" : 0,
 		"stockpile_shape" : 2,
 		"Wealth" : 100,
 		"Food" : 200,
 		"Timber" : 40,
 		"Fiber" : 40,
-		"Tools" : 40,
+		"Tools" : 100,
 		"Farm Wheat" : 2,
 		"Cut Trees" : 0.5,
 		"Herd Livestock" : 0.5,
-		"Farmland" : 40,
-		"Forest" : 20,
-		"Pasture" : 20
+		"Farmland" : 50,
+		"Forest" : 25,
+		"Pasture" : 25
 	},
 	{
 		"name" : "Pop",
 		"type" : "Template",
 		"pop" : "Craftsmen",
 		"pref" : 0.1,
-		"skill_weight_low" : 0.3,
-		"skill_weight_med" : 0.7,
-		"skill_weight_high" : 1.2,
+		"skill_weight_low" : 0.4,
+		"skill_weight_med" : 0.9,
+		"skill_weight_high" : 1.5,
 		"skill_shape" : 2,
 		"stockpile_shape" : 2,
 		"Wealth" : 40,

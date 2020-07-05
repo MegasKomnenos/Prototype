@@ -166,12 +166,16 @@
 		"functions" : [
 			"ADD",
 			"ADD",
-			"ADD"
+			"ADD",
+			"MULT",
+			"DIV"
 		],
 		"paras" : [
 			"%pop% Low Skill Labor",
 			"%pop% Med Skill Labor",
-			"%pop% High Skill Labor"
+			"%pop% High Skill Labor",
+			"Average Workhour",
+			"Hours in Day"
 		]
 	},
 	
