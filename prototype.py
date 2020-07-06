@@ -202,6 +202,7 @@ class Instance(Value):
 class World:
     def __init__(self):
         self.objs = dict()
+        self.defines = dict()
         
         self.systems = dict()
         self.systems_id = dict()
@@ -215,6 +216,9 @@ class World:
 
     def get_item(self, name):
         return self.objs.get(name)
+
+    def set_defines(self, item):
+        self.defines = item
 
     def do_update(self):
         lst = [obj for obj in self.objs.values() if obj.update]
@@ -286,14 +290,20 @@ class World:
 class WorldLoader:
     def __init__(self, root):
         self.objs = dict()
+        self.defines = dict()
         
         files = []
         templates = {}
+        defines = []
         
         for path in glob.glob(f'{root}\\World\\*.json'):
             files.append(json.load(open(path)))
         for path in glob.glob(f'{root}\\Template\\*.txt'):
             templates[path.split('\\')[-1].split('.')[0].strip()] = open(path).read()
+        for path in glob.glob(f'{root}\\Defines\\*.json'):
+            defines.append(json.load(open(path)))
+
+        self.defines = parse_list(defines)
 
         for file in files:
             for dct in file:
@@ -366,6 +376,7 @@ class WorldLoader:
 
     def gen(self):
         world = World()
+        world.set_defines(self.defines)
 
         lst = [pair for pair in self.objs.items() if not pair[1]['parents']]
 
@@ -454,6 +465,132 @@ class System:
     def do_run(self):
         pass
 
+class SystemTrade(System):
+    def __init__(self, world):
+        self.pops = world.defines['Pop']
+        self.goods = world.defines['Good']
+        
+        writes = dict()
+        reads = dict()
+
+        for pop in self.pops:
+            for good in self.goods:
+                writes[f'{pop} {good} Bid Matched'] = world.get_item(f'{pop} {good} Bid Matched')
+                writes[f'{pop} {good} Offer Matched'] = world.get_item(f'{pop} {good} Offer Matched')
+                writes[f'{pop} {good} Trade Balance'] = world.get_item(f'{pop} {good} Trade Balance')
+                writes[f'{pop} {good} Price'] = world.get_item(f'{pop} {good} Price')
+                
+                reads[f'{pop} {good} Bid'] = world.get_item(f'{pop} {good} Bid')
+                reads[f'{pop} {good} Offer'] = world.get_item(f'{pop} {good} Offer')
+
+        super().__init__(writes, reads)
+
+        world.add_system("Trade System", self)
+
+    def do_run(self):
+        def split_sections(price, amount, pop):
+            return [[price * 0.75, amount * 0.25, 0, pop], [price, amount * 0.5, 0, pop], [price * 1.25, amount * 0.25, 0, pop]]
+        
+        for pop in self.pops:
+            for good in self.goods:
+                self.writes[f'{pop} {good} Bid Matched'].set_base(0)
+                self.writes[f'{pop} {good} Offer Matched'].set_base(0)
+                self.writes[f'{pop} {good} Trade Balance'].set_base(0)
+
+        for good in self.goods:
+            bids = []
+            offers = []
+
+            for pop in self.pops:
+                price = self.writes[f'{pop} {good} Price'].value
+                bid = self.reads[f'{pop} {good} Bid'].value
+                offer = self.reads[f'{pop} {good} Offer'].value
+
+                if bid:
+                    bids.extend(split_sections(price, bid, pop))
+                elif offer:
+                    offers.extend(split_sections(price, offer, pop))
+
+            bids.sort(key=lambda item: item[0], reverse=True)
+            offers.sort(key=lambda item: item[0])
+
+            scores = [[max(bid[0] - offer[0], 0) for offer in offers] for bid in bids]
+
+            while True:
+                bids_matching = [[0 for offer in offers] for bid in bids]
+
+                for i, bid in enumerate(bids):
+                    if bid[1] > bid[2]:
+                        sm = 0
+                        
+                        for ii, offer in enumerate(offers):
+                            bids_matching[i][ii] = scores[i][ii] * (offer[1] - offer[2])
+                            sm += bids_matching[i][ii]
+
+                        if sm > 0:
+                            for ii, offer in enumerate(offers):
+                                bids_matching[i][ii] /= sm
+                                bids_matching[i][ii] *= bid[1] - bid[2]
+
+                                if bids_matching[i][ii] > offer[1] - offer[2]:
+                                    bids_matching[i][ii] = offer[1] - offer[2]
+                                    
+                trade_volume = 0
+                
+                for i, offer in enumerate(offers):
+                    seller_balance = self.writes[f'{offer[3]} {good} Trade Balance']
+                    
+                    total_bid = sum([bids_matching[ii][i] for ii, _ in enumerate(bids) if scores[ii][i]])
+                    total_offer = offer[1] - offer[2]
+
+                    if total_bid <= total_offer:
+                        offer[2] += total_bid
+                        trade_volume += total_bid
+
+                        for ii, bid in enumerate(bids):
+                            bidder_balance = self.writes[f'{bid[3]} {good} Trade Balance']
+                            
+                            bid[2] += bids_matching[ii][i]
+
+                            price = (offer[0] + bid[0]) / 2
+
+                            seller_balance.change_base(ADD, price * bids_matching[ii][i])
+                            bidder_balance.change_base(SUBT, price * bids_matching[ii][i])
+                    else:
+                        offer[2] += total_offer
+                        trade_volume += total_offer
+                        worst_bid = min([scores[ii][i] for ii, _ in enumerate(bids) if scores[ii][i] and bids_matching[ii][i]])
+                        foo = 1 - total_offer / total_bid
+                        sm = 0
+
+                        for ii, bid in enumerate(bids):
+                            if scores[ii][i]:
+                                bids_matching[ii][i] *= 1 - foo * worst_bid / scores[ii][i]
+                                sm += bids_matching[ii][i]
+                            
+                        for ii, bid in enumerate(bids):
+                            if scores[ii][i]:
+                                bidder_balance = self.writes[f'{bid[3]} {good} Trade Balance']
+                                
+                                bids_matching[ii][i] *= total_offer / sm
+                                bid[2] += bids_matching[ii][i]
+
+                                price = (offer[0] + bid[0]) / 2
+
+                                seller_balance.change_base(ADD, price * bids_matching[ii][i])
+                                bidder_balance.change_base(SUBT, price * bids_matching[ii][i])
+                                
+                if trade_volume == 0:
+                    break
+
+            for bid in bids:
+                self.writes[f'{bid[3]} {good} Bid Matched'].change_base(ADD, bid[2])
+                self.writes[f'{bid[3]} {good} Price'].change_base(MULT, 1 + (0.5 - bid[2] / bid[1]) / 50)
+            for offer in offers:
+                self.writes[f'{offer[3]} {good} Offer Matched'].change_base(ADD, offer[2])
+                self.writes[f'{offer[3]} {good} Price'].change_base(MULT, 1 + (offer[2] / offer[1] - 0.5) / 50)
+            
+        
 def add_helper(lst, item):
     if not item in lst:
         lst.append(item)
@@ -536,33 +673,48 @@ def apply_conditional(k0, k1, template, dct):
                         
 if __name__ == '__main__':
     world = WorldLoader('C:\\Users\\wogud\\Desktop\\Prototype').gen()
+    SystemTrade(world)
+    world.do_run()
+    world.do_update()
 
-    print("Peasants Total", world.get_item("Peasants Total").value)
-    print("Peasants Food Consumption", world.get_item("Peasants Food Consumption").value)
-    print("Peasants Food Output", world.get_item("Peasants Food Output").value)
-    print("Peasants Food Offer", world.get_item("Peasants Food Offer").value)
-    print("Peasants Tools Consumption",world.get_item("Peasants Tools Consumption").value)
-    print("Craftsmen Tools Output", world.get_item("Craftsmen Tools Output").value)
-    print("Craftsmen Tools Offer", world.get_item("Craftsmen Tools Offer").value)
-
-    print("Peasants Timber Consumption", world.get_item("Peasants Timber Consumption").value)
-    print("Peasants Timber Output", world.get_item("Peasants Timber Output").value)
-    print("Peasants Timber Offer", world.get_item("Peasants Timber Offer").value)
-    print("Craftsmen Timber Consumption",world.get_item("Craftsmen Timber Consumption").value)
-    print("Craftsmen Timber Input", world.get_item("Craftsmen Timber Input").value)
-    print("Craftsmen Timber Bid", world.get_item("Craftsmen Timber Bid").value)
-    print("Craftsmen Timber Goal", world.get_item("Craftsmen Timber Goal").value)
-    print("Craftsmen Timber", world.get_item("Craftsmen Timber").value)
-    print("Craftsmen Timber Balance", world.get_item("Craftsmen Timber Balance").value)
-
+    print(world.get_item('Peasants Food Trade Balance').value)
+    print(world.get_item('Peasants Timber Trade Balance').value)
+    print(world.get_item('Peasants Fiber Trade Balance').value)
+    print(world.get_item('Peasants Tools Trade Balance').value)
+    print('--------------')
+    print(world.get_item('Peasants Food Offer Matched').value)
+    print(world.get_item('Peasants Timber Offer Matched').value)
+    print(world.get_item('Peasants Fiber Offer Matched').value)
+    print(world.get_item('Peasants Tools Bid Matched').value)
+    print('--------------')
+    print(world.get_item('Peasants Food Offer').value)
+    print(world.get_item('Peasants Timber Offer').value)
+    print(world.get_item('Peasants Fiber Offer').value)
+    print(world.get_item('Peasants Tools Bid').value)
+    print('--------------')
+    print(world.get_item('Craftsmen Food Bid').value)
+    print(world.get_item('Craftsmen Timber Bid').value)
+    print(world.get_item('Craftsmen Fiber Bid').value)
+    print(world.get_item('Craftsmen Tools Offer').value)
+    print('--------------')
+    print(world.get_item('Peasants Food Price').value)
+    print(world.get_item('Peasants Timber Price').value)
+    print(world.get_item('Peasants Fiber Price').value)
+    print(world.get_item('Peasants Tools Price').value)
+    print('--------------')
+    print(world.get_item('Craftsmen Food Price').value)
+    print(world.get_item('Craftsmen Timber Price').value)
+    print(world.get_item('Craftsmen Fiber Price').value)
+    print(world.get_item('Craftsmen Tools Price').value)
+    
     """
     foo = world.get_item("Pops Total")
 
     a = time.monotonic()
 
-    for _ in range(1000):
+    for _ in range(100):
         foo.change_base(ADD, 1)
-
+        world.do_run()
         world.do_update()
 
     print(time.monotonic() - a)

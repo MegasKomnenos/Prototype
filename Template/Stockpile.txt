@@ -75,6 +75,19 @@
 			"%pop% %good% Input",
 			"Stockpile Factor"
 		]
+	},
+	{
+		"name" : "%pop% %good% Goal Actual",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% %good% Goal",
+			"%pop% Goal Fill"
+		]
 	},!
 	
 	{
@@ -127,7 +140,7 @@
 		"paras" : [
 			"%pop% %good%",
 			"%pop% %good% Balance",
-			"%pop% %good% Goal",
+			"%pop% %good% Goal Actual",
 			"Stockpile Factor",
 			"0"
 		]
@@ -144,13 +157,42 @@
 			"MAX"
 		],
 		"paras" : [
-			"%pop% %good% Goal",
+			"%pop% %good% Goal Actual",
 			"%pop% %good%",
 			"%pop% %good% Balance",
 			"Stockpile Factor",
 			"0"
 		]
+	},
+	{
+		"name" : "%pop% %good% Offer Matched",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %good% Bid Matched",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
+	},
+	{
+		"name" : "%pop% %good% Trade Balance",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [],
+		"paras" : []
 	},#
+	
+	!@price@{
+		"name" : "%pop% %good% Price",
+		"type" : "Value",
+		"base" : %price%,
+		"functions" : [],
+		"paras" : []
+	},!
 	
 	{
 		"name" : "%pop% %good%",

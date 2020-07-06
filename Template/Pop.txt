@@ -457,11 +457,69 @@
 		]
 	},
 	{
+		"name" : "%pop% Tools Goal Actual",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Tools Goal",
+			"%pop% Goal Fill"
+		]
+	},
+	{
 		"name" : "%pop% Tools Usage",
 		"type" : "Value",
 		"base" : 5,
 		"functions" : ["MULT"],
 		"paras" : ["%pop% Tools Consumption"]
+	},
+	
+	{
+		"name" : "%pop% Goal Value",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"ADD",
+			"MULT",
+			"DIV",
+			"ADD",
+			"MULT",
+			"DIV",
+			"ADD",
+			"MULT",
+			"DIV",
+			"ADD",
+			"MULT"
+		],
+		"paras" : [
+			"%pop% Food Goal",
+			"%pop% Food Price",
+			"%pop% Timber Price",
+			"%pop% Timber Goal",
+			"%pop% Timber Price",
+			"%pop% Fiber Price",
+			"%pop% Fiber Goal",
+			"%pop% Fiber Price",
+			"%pop% Tools Price",
+			"%pop% Tools Goal",
+			"%pop% Tools Price"
+		]
+	},
+	{
+		"name" : "%pop% Goal Fill",
+		"type" : "Value",
+		"base" : 0,
+		"functions" : [
+			"SET",
+			"DIV"
+		],
+		"paras" : [
+			"%pop% Wealth",
+			"%pop% Goal Value"
+		]
 	},
 	
 	{
@@ -477,6 +535,7 @@
 		"pop" : "%pop%",
 		"good" : "Food",
 		"amount" : %Food%,
+		"price" : %Food Price%,
 		"is_good" : "True",
 		"consume" : "True"
 	},
@@ -486,6 +545,7 @@
 		"pop" : "%pop%",
 		"good" : "Timber",
 		"amount" : %Timber%,
+		"price" : %Timber Price%,
 		"is_good" : "True",
 		"consume" : "True"
 	},
@@ -495,6 +555,7 @@
 		"pop" : "%pop%",
 		"good" : "Fiber",
 		"amount" : %Fiber%,
+		"price" : %Fiber Price%,
 		"is_good" : "True",
 		"consume" : "True"
 	},
@@ -504,6 +565,7 @@
 		"pop" : "%pop%",
 		"good" : "Tools",
 		"amount" : %Tools%,
+		"price" : %Tools Price%,
 		"is_good" : "True"
 	}
 ]

@@ -1,0 +1,6 @@
+{
+	"Pop" : ["Peasants", "Craftsmen"],
+	"Wealth" : "Wealth",
+	"Good" : ["Food", "Timber", "Fiber", "Tools"],
+	"Activity" : ["Farm Wheat", "Cut Trees", "Herd Livestock", "Make Tools"]
+}
